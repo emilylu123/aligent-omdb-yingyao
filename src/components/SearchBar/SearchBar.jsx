@@ -10,12 +10,13 @@ function SearchBar() {
   const [year, setYear] = useState({});
 
   function handleTypeChange(event) {
-    // console.log(event.target);
+    console.log("ttt", event.target);
     setType(event.target);
     console.log("type", type);
   }
 
   function handleYearChange(event) {
+    setYear(event.target);
     console.log("year", event.target);
   }
 
@@ -41,10 +42,11 @@ function SearchBar() {
         </Grid>
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchYear year={year} onChange={handleYearChange} />
+        <SearchYear name="year" year={year} onChange={handleYearChange} />
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchType type={type} onChange={handleTypeChange} />
+        <SearchType name="type" type={type} onChange={handleTypeChange} />
+        <p>TYPE {type}</p>
       </Grid>
     </Grid>
   );
