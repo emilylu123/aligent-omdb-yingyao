@@ -1,14 +1,14 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { Link } from "react-router-dom";
-import './Header.styles.scss'
 
 export default function Header() {
   return (
-    <div>
-      <h1> Open Movie Database </h1>
-      <Link to="/">Search Movie
-         </Link>
+    <Breadcrumbs aria-label="breadcrumb">
+      <h2>OPEN MOVIE DATABASE</h2>
+      <Link to="/">Search Movie</Link>
       <Link to="/watchlist">Watch List</Link>
-    </div>
+    </Breadcrumbs>
   );
 }
