@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import HomePage from './pages/HomePage/HomePage';
 import WatchListPage from './pages/WatchList/WatchListPage';
 function App() {

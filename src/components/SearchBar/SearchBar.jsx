@@ -1,7 +1,15 @@
 import React from "react";
+import './SearchBar.styles.scss'
+import SearchYear from './SearchYear/SearchYear'
+import SearchType from './SearchType/SearchType'
 
-export default function SearchBar() {
+function SearchBar() {
     return (
-        <div>SearchBar</div>
+        <div>
+            <SearchYear />
+            <SearchType />    
+        </div>
     )
-} 
+}
+
+export default SearchBar;
