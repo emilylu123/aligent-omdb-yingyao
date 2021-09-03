@@ -8,7 +8,8 @@ export default function MovieItem(props) {
   const { title, year, imgURL, id } = props;
 
   return (
-    <div onClick={props.onClick}>
+    // Executed on click
+    <div onClick={() => props.onClick(id)}> 
       <Grid container className="movie-item">
         <Grid item xs={4}>
           <img src={imgURL !== "N/A" ? imgURL : defaultPoster} alt="Poster" />

@@ -6,7 +6,13 @@ import { Grid } from "@material-ui/core";
 
 export default function SearchResult(props) {
   console.log("MovieList", props.result, props.detailInfo);
-  const { Search, Response, totalResults } = props.result;
+  const {
+    yearRange: [startY, endY],
+    type,
+    result: { Search, Response, totalResults },
+    detailInfo,
+  } = props;
+
   const [selectId, setSelectId] = useState(0);
 
   function handleSelect(id) {
@@ -20,17 +26,20 @@ export default function SearchResult(props) {
         <Grid item xs={3}>
           <p>{totalResults} RESULTS</p>
           {Search.map(({ Title, Year, Type, Poster, imdbID }, index) => {
-            return (
-              <MovieItem
-                key={index}
-                id={index}
-                title={Title}
-                year={Year}
-                type={Type}
-                imgURL={Poster}
-                onClick={() => handleSelect(index)}
-              />
-            );
+            if (Year > startY && Year < endY) {
+              return (
+                <MovieItem
+                  key={index}
+                  id={index}
+                  imdbID={imdbID}
+                  title={Title}
+                  year={Year}
+                  type={Type}
+                  imgURL={Poster}
+                  onClick={handleSelect}
+                />
+              );
+            }
           })}
         </Grid>
         <Grid item xs={8}>

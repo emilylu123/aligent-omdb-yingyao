@@ -2,20 +2,11 @@ import React from "react";
 import "./SearchYear.styles.scss";
 import { Grid, Slider, Typography } from "@material-ui/core";
 
-export default function SelectYear() {
+export default function SelectYear(props) {
   const [value, setValue] = React.useState([1970, 2021]);
 
-  const handleChange = (event, newValue) => {
-    const year = event.target.value;
-    console.log("YEAR:", year);
-    // console.log(start, end);
-    console.log("T", event.target);
-    console.log("v", event.target.value);
-    setValue(newValue);
-  };
-
-  function valuetext(value) {
-    return `${value} Year`;
+  function handleChange(e, data) {
+    setValue(data);
   }
 
   return (
@@ -32,14 +23,17 @@ export default function SelectYear() {
             value={value}
             min={1970}
             max={2021}
-            defaultValue={[1970, 2021]}
+            // defaultValue={[1970, 2021]}
+            onChangeCommitted={(e) => {
+              console.log("onChangeCommitted", value);
+              props.onChange(value);
+            }}
             onChange={handleChange}
             valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
-            getAriaLabel={(index) => (index === 0 ? "Start Year" : "End Year")}
+            getAriaLabel={(index) => (index === 0 ? "Start" : "End")}
           />
         </Grid>
-        <Grid item>2015</Grid>
+        <Grid item>2021</Grid>
       </Grid>
     </div>
   );

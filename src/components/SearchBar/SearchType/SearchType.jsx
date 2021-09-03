@@ -5,35 +5,18 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 
-export default function SelectType() {
-  const [type, setType] = useState("");
-
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-    console.log("Type:", type);
-  };
-
+export default function SelectType(props) {
   return (
-    <FormControl
-      component="fieldset"
-      className="search-type"
-      // onChange={handleTypeChange}
-    >
+    <FormControl component="fieldset" className="search-type">
       TYPE
-      <RadioGroup
-        row
-        aria-label="type"
-        name="type"
-        defaultValue="any"
-        onChange={handleTypeChange}
-      >
+      <RadioGroup row name="type" defaultValue="" onChange={props.onChange}>
         <FormControlLabel
-          value="any"
+          value=""
           control={<Radio color="secondary" />}
           label="Any"
         />
         <FormControlLabel
-          value="movies"
+          value="movie"
           control={<Radio color="secondary" />}
           label="Movies"
         />
@@ -43,7 +26,7 @@ export default function SelectType() {
           label="Series"
         />
         <FormControlLabel
-          value="episodes"
+          value="episode"
           control={<Radio color="secondary" />}
           label="Episodes"
         />

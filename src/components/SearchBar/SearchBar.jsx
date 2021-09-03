@@ -1,24 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchBar.styles.scss";
 import SearchYear from "./SearchYear/SearchYear";
 import SearchType from "./SearchType/SearchType";
 import { Search } from "@material-ui/icons";
 import { TextField, Grid } from "@material-ui/core";
 
-function SearchBar() {
-  const [type, setType] = useState("");
-  const [year, setYear] = useState({});
-
-  function handleTypeChange(event) {
-    console.log("ttt", event.target);
-    setType(event.target);
-    console.log("type", type);
-  }
-
-  function handleYearChange(event) {
-    setYear(event.target);
-    console.log("year", event.target);
-  }
+function SearchBar(props) {
+  const { keyword, year, type } = props.search;
 
   return (
     <Grid container xs={12} className="search-bar">
@@ -34,19 +22,34 @@ function SearchBar() {
           </Grid>
           <Grid item>
             <TextField
+              name="keyword"
               id="search-input"
               type="text"
+              value={keyword}
               placeholder="Search Movies"
+              onChange={props.onChangeSearch}
             />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchYear name="year" year={year} onChange={handleYearChange} />
+        <SearchYear
+          name="year"
+          value={year}
+          onChange={props.onChangeYear}
+        />
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchType name="type" type={type} onChange={handleTypeChange} />
-        <p>TYPE {type}</p>
+        <SearchType
+          name="type"
+          value={type}
+          onChange={props.onChangeSearch}
+        />
+      </Grid>
+      <Grid container>
+        <p>
+          YEAR {year} TYPE {type}
+        </p>
       </Grid>
     </Grid>
   );
