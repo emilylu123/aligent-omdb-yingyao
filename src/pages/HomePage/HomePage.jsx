@@ -5,7 +5,6 @@ import { Grid } from "@material-ui/core";
 
 export default function HomePage() {
   const [movies, setMovies] = useState({});
-  const [movieInfo, setMovieInfo] = useState({});
   const [search, setSearch] = useState({
     keyword: "star",
     year: [1970, 2021],
@@ -20,28 +19,15 @@ export default function HomePage() {
   // async function to fetch movie list(array) from OMDB API
   // each movie is shown as {Poster,Title,Type,Year,imdbID}
   const getMovies = async () => {
-    console.log("getMovies ->", search);
     try {
-      console.log("URL->", listURL);
       const response = await fetch(listURL);
       const data = await response.json();
-      console.log("data", data);
+      console.log("data->>", data);
       setMovies(data);
+    } catch (e) {
+      console.error(e.toString);
+    } finally {
       console.log("getMovies successful: ", movies);
-    } catch (e) {
-      console.error(e.toString);
-    }
-  };
-
-  const getMovieDetail = async () => {
-    try {
-      const response = await fetch(detailURL);
-      const data = await response.json();
-      console.log("data", data);
-      setMovieInfo(data);
-      console.log("getMovieDetail: ", movieInfo);
-    } catch (e) {
-      console.error(e.toString);
     }
   };
 
@@ -110,7 +96,6 @@ export default function HomePage() {
               yearRange={search.year}
               type={search.type}
               result={movies}
-              detailInfo={movieInfo}
             />
           ) : (
             <p>No Movie found</p>

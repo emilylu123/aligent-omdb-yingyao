@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchResult.styles.scss";
 import MovieDetail from "./MovieDetail/MovieDetail";
 import MovieItem from "./MovieItem/MovieItem";
 import { Grid } from "@material-ui/core";
 
 export default function SearchResult(props) {
-  console.log("MovieList", props.result, props.detailInfo);
   const {
     yearRange: [startY, endY],
     type,
-    result: { Search, Response, totalResults },
-    detailInfo,
+    result: { Search, totalResults },
   } = props;
 
   const [selectId, setSelectId] = useState(0);
+  const [imdb, setImdb] = useState("tt0076759");
+  const [movieInfo, setMovieInfo] = useState({});
+
+  const API_KEY = "866364e";
+  const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${imdb}`;
 
   function handleSelect(id) {
     setSelectId(id);
-    console.log("select ID", selectId);
+    setImdb(Search[id].imdbID);
+    getMovieDetail();
   }
+
+  const getMovieDetail = async () => {
+    try {
+      const response = await fetch(detailURL);
+      const data = await response.json();
+      console.log("data->", data, typeof data);
+      setMovieInfo(data);
+    } catch (e) {
+      console.error(e.toString);
+    }
+  };
+
+  useEffect(() => {
+    //fetch data from api
+    setImdb(Search[0].imdbID);
+    getMovieDetail();
+    console.log(movieInfo);
+  }, []);
 
   return (
     <div className="">
@@ -31,7 +53,6 @@ export default function SearchResult(props) {
                 <MovieItem
                   key={index}
                   id={index}
-                  imdbID={imdbID}
                   title={Title}
                   year={Year}
                   type={Type}
@@ -43,7 +64,12 @@ export default function SearchResult(props) {
           })}
         </Grid>
         <Grid item xs={8}>
-          <MovieDetail detail={Search[selectId]} />
+          {movieInfo ? (
+            // <p>{movieInfo.Title}</p>
+            <MovieDetail basic={Search[selectId]} info={movieInfo} />
+          ) : (
+            <div>Loading...</div>
+          )}
         </Grid>
       </Grid>
     </div>

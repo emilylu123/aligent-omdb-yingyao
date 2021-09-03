@@ -33,23 +33,10 @@ function SearchBar(props) {
         </Grid>
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchYear
-          name="year"
-          value={year}
-          onChange={props.onChangeYear}
-        />
+        <SearchYear name="year" value={year} onChange={props.onChangeYear} />
       </Grid>
       <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchType
-          name="type"
-          value={type}
-          onChange={props.onChangeSearch}
-        />
-      </Grid>
-      <Grid container>
-        <p>
-          YEAR {year} TYPE {type}
-        </p>
+        <SearchType name="type" value={type} onChange={props.onChangeSearch} />
       </Grid>
     </Grid>
   );
