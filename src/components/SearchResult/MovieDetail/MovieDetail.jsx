@@ -38,10 +38,14 @@ export default function MovieDetail(props) {
       <hr />
       <div>{Plot}</div>
       <hr />
-      <span>{Ratings[0].Value}</span>
-      <span>{Ratings[0].Source}</span>
-      <span>{Ratings[1].Value}</span>
-      <span>{Ratings[1].Source}</span>
+      {Ratings ? (
+        <div>
+          <span>{Ratings[0].Value}</span>
+          <span>{Ratings[0].Source}</span>
+          <span>{Ratings[1].Value}</span>
+          <span>{Ratings[1].Source}</span>
+        </div>
+      ) : null}
     </div>
   );
 }
