@@ -6,7 +6,6 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 export default function MovieDetail(props) {
   console.log("props.detail", props.info);
   const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info;
-
   const { Title, Type, Year, Poster } = props.basic;
   const [watchList, setWatchList] = useState(false);
   // const [collection, setCollection] = useState([]);
@@ -27,20 +26,22 @@ export default function MovieDetail(props) {
 
   return (
     <div className="selected">
-      <img src={Poster} alt={Title} />
-      <p> {Title}</p>
-      <p> {Year}</p>
-      <p> {Type}</p>
-      <p>{Rated}</p>
-      <p>{Runtime}</p>
-      <p>{Actors}</p>
-      <p>{Genre}</p>
-      <p>{Plot}</p>
-
-      <button value={watchList} onClick={toggleWatchList}>
+      <img src={Poster} alt={Title} className="poster" />
+      <button value={watchList} onClick={toggleWatchList} className="watchlist">
         {watchList ? <BookmarkIcon /> : <BookmarkBorderIcon />}
         Watchlist
       </button>
+      <h2 className="title"> {Title}</h2>
+      <span className="rated">{Rated}</span>
+      <span className="year">{`  ${Year} · ${Genre} · ${Runtime}`}</span>
+      <div>{Actors}</div>
+      <hr />
+      <div>{Plot}</div>
+      <hr />
+      <span>{Ratings[0].Value}</span>
+      <span>{Ratings[0].Source}</span>
+      <span>{Ratings[1].Value}</span>
+      <span>{Ratings[1].Source}</span>
     </div>
   );
 }
