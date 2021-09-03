@@ -10,9 +10,10 @@ export default function HomePage() {
     year: [1970, 2021],
     type: "",
   });
+  const [page, setPage] = useState(1);
 
   const API_KEY = "866364e";
-  const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}`;
+  const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${page}`;
   // const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&y=${search.year}`;
   const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&t=${search.keyword}`;
 
@@ -76,6 +77,11 @@ export default function HomePage() {
     getMovies();
   }
 
+  function handleNextPage() {
+    setPage(page + 1);
+    getMovies();
+  }
+
   useEffect(() => {
     getMovies(); //fetch data from api
   }, []);
@@ -100,6 +106,7 @@ export default function HomePage() {
           ) : (
             <p>No Movie found</p>
           )}
+          <a onClick={handleNextPage}> Next </a>
         </Grid>
       </Grid>
     </div>
