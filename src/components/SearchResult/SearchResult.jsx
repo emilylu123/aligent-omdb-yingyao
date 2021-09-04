@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./SearchResult.styles.scss";
 import MovieDetail from "./MovieDetail/MovieDetail";
 import MovieItem from "./MovieItem/MovieItem";
-import { Grid } from "@material-ui/core";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function SearchResult(props) {
   const {
@@ -43,9 +43,9 @@ export default function SearchResult(props) {
   }, []);
 
   return (
-    <div className="">
-      <Grid container>
-        <Grid item xs={3}>
+    <Container className="search-result-container">
+      <Row>
+        <Col xs={4} className="search-result-list">
           <p>{totalResults} RESULTS</p>
           {Search.map(({ Title, Year, Type, Poster, imdbID }, index) => {
             if (Year > startY && Year < endY) {
@@ -62,16 +62,15 @@ export default function SearchResult(props) {
               );
             }
           })}
-        </Grid>
-        <Grid item xs={8}>
+        </Col>
+        <Col xs={8}>
           {movieInfo ? (
-            // <p>{movieInfo.Title}</p>
             <MovieDetail basic={Search[selectId]} info={movieInfo} />
           ) : (
             <div>Loading...</div>
           )}
-        </Grid>
-      </Grid>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }

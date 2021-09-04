@@ -1,12 +1,61 @@
-.poster {
-  width: 250px;
-  height: 100%;
+body {
+  color: rgb(19, 18, 18);
+  align-items: left;
+  text-align: left;
+  margin: 0px;
+
+  .poster {
+    margin: 20px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .rated {
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid black;
+  }
+
+  .title {
+    align-items: left;
+    text-align: left;
+    margin: 10px 20px;
+  }
+
+  .year {
+    align-items: left;
+    margin: 15px;
+  }
+  .watchlist {
+  }
+
+  #actors {
+    text-align: left;
+    align-items: left;
+  }
+
+  #plot {
+    padding: 10px 20px;
+    text-align: left;
+    align-items: left;
+  }
+}
+.ratings {
+  text-align: center;
 }
 
-.rated {
-  border: 1px solid black;
+.rating {
+  width: 100px;
+  height: 60px;
+  position: relative;
 }
 
-.watchlist{
-    
+.rating:after {
+  content: "";
+  height: 50px;
+  border-right: 2px solid gray;
+  position: absolute;
+  right: 0;
+  top: 10px;
 }

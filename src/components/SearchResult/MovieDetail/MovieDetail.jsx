@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./MovieDetail.styles.scss";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function MovieDetail(props) {
   console.log("props.detail", props.info);
@@ -25,27 +26,55 @@ export default function MovieDetail(props) {
   }
 
   return (
-    <div className="selected">
-      <img src={Poster} alt={Title} className="poster" />
-      <button value={watchList} onClick={toggleWatchList} className="watchlist">
-        {watchList ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-        Watchlist
-      </button>
-      <h2 className="title"> {Title}</h2>
-      <span className="rated">{Rated}</span>
-      <span className="year">{`  ${Year} · ${Genre} · ${Runtime}`}</span>
-      <div>{Actors}</div>
+    <Container>
+      <Row>
+        <Col xs={4}>
+          <img src={Poster} alt={Title} className="poster" />
+        </Col>
+        <Col xs={8}>
+          <Container>
+            <Row>
+              <Col>
+                <button
+                  value={watchList}
+                  onClick={toggleWatchList}
+                  className="watchlist"
+                >
+                  {watchList ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                  Watchlist
+                </button>
+              </Col>
+            </Row>
+            <Row className="title-block">
+              <Col xs={12}>
+                <h2 className="title"> {Title}</h2>
+                <span className="rated">{Rated}</span>
+                <span className="year">{`  ${Year} · ${Genre} · ${Runtime}`}</span>
+                <p id="actors">{Actors}</p>
+              </Col>
+            </Row>
+          </Container>
+        </Col>
+      </Row>
+
       <hr />
-      <div>{Plot}</div>
+      <Row>
+        <Col id="plot">{Plot} </Col>
+      </Row>
       <hr />
+
       {Ratings ? (
-        <div>
-          <span>{Ratings[0].Value}</span>
-          <span>{Ratings[0].Source}</span>
-          <span>{Ratings[1].Value}</span>
-          <span>{Ratings[1].Source}</span>
-        </div>
+        <Row className='ratings'>
+          <Col className='rating'>
+            <p>{Ratings[0].Value}</p>
+            <p>{Ratings[0].Source}</p>
+          </Col>
+          <Col>
+            <p>{Ratings[1].Value}</p>
+            <p>{Ratings[1].Source}</p>
+          </Col>
+        </Row>
       ) : null}
-    </div>
+    </Container>
   );
 }

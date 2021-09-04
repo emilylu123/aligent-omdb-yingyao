@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./SearchBar.styles.scss";
 import SearchYear from "./SearchYear/SearchYear";
 import SearchType from "./SearchType/SearchType";
-import { Search } from "@material-ui/icons";
-import { TextField, Grid } from "@material-ui/core";
+
+import { BsSearch } from "react-icons/bs";
+import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 
 function SearchBar(props) {
   const { keyword, year, type } = props.search;
 
   return (
-    <Grid container xs={12} className="search-bar">
-      <Grid item xs justifyContent="flex-start">
-        <Grid
-          container
-          spacing={1}
-          alignItems="flex-end"
-          className="search-field"
-        >
-          <Grid item>
-            <Search />
-          </Grid>
-          <Grid item>
-            <TextField
+    <Container className="search-bar">
+      <Row>
+        <Col className="search-input" xs="auto">
+          <InputGroup size="lg" className="mb-3">
+            <InputGroup.Text>
+              <BsSearch />
+            </InputGroup.Text>
+            <FormControl
+              placeholder="Search Movies"
+              aria-label="keyword"
+              aria-describedby="basic-addon1"
               name="keyword"
-              id="search-input"
+              id="search-input-box"
               type="text"
               value={keyword}
-              placeholder="Search Movies"
               onChange={props.onChangeSearch}
             />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchYear name="year" value={year} onChange={props.onChangeYear} />
-      </Grid>
-      <Grid item xs spacing={1} justifyContent="flex-end">
-        <SearchType name="type" value={type} onChange={props.onChangeSearch} />
-      </Grid>
-    </Grid>
+          </InputGroup>
+        </Col>
+        <Col className="search-year" xs="auto">
+          <SearchYear name="year" value={year} onChange={props.onChangeYear} />
+        </Col>
+        <Col className="search-type" xs="auto">
+          <SearchType
+            name="type"
+            value={type}
+            onChange={props.onChangeSearch}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import "./MovieItem.styles.scss";
 import { Grid } from "@material-ui/core";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function MovieItem(props) {
   const defaultPoster =
@@ -9,16 +10,16 @@ export default function MovieItem(props) {
 
   return (
     // Executed on click
-    <div onClick={() => props.onClick(id)}> 
-      <Grid container className="movie-item">
-        <Grid item xs={4}>
+    <Container className="movie-item" onClick={() => props.onClick(id)}>
+      <Row>
+        <Col xs={4}>
           <img src={imgURL !== "N/A" ? imgURL : defaultPoster} alt="Poster" />
-        </Grid>
-        <Grid item xs={8}>
-          <h3>{title}</h3>
-          <p>{year}</p>
-        </Grid>
-      </Grid>
-    </div>
+        </Col>
+        <Col xs>
+          <p className="movie-title">{title}</p>
+          <p className="year">{year}</p>
+        </Col>
+      </Row>
+    </Container>
   );
 }

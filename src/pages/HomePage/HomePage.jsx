@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SearchResult from "../../components/SearchResult/SearchResult";
-import { Grid } from "@material-ui/core";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function HomePage() {
   const [movies, setMovies] = useState({});
@@ -14,7 +14,6 @@ export default function HomePage() {
 
   const API_KEY = "866364e";
   const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${page}`;
-  // const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&y=${search.year}`;
   const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&t=${search.keyword}`;
 
   // async function to fetch movie list(array) from OMDB API
@@ -23,12 +22,10 @@ export default function HomePage() {
     try {
       const response = await fetch(listURL);
       const data = await response.json();
-      console.log("data->>", data);
+      console.log("Get Movie data ->>", data);
       setMovies(data);
     } catch (e) {
       console.error(e.toString);
-    } finally {
-      console.log("getMovies successful: ", movies);
     }
   };
 
@@ -88,17 +85,19 @@ export default function HomePage() {
 
   return (
     <div className="homepage">
-      <Grid container>
-        <Grid item xs={12}>
+      <Container>
+        <Row>
           <SearchBar
+            className="search-bar"
             search={search}
             onChangeYear={handleChangeYear}
             onChangeSearch={handleChangeSearch}
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Row>
+        <Row>
           {movies.Response === "True" ? (
             <SearchResult
+              className="search-result"
               yearRange={search.year}
               type={search.type}
               result={movies}
@@ -107,8 +106,8 @@ export default function HomePage() {
             <p>No Movie found</p>
           )}
           <a onClick={handleNextPage}> Next </a>
-        </Grid>
-      </Grid>
+        </Row>
+      </Container>
     </div>
   );
 }

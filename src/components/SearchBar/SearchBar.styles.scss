@@ -1,10 +1,9 @@
 .search-bar {
-  display: flex;
+  // display: flex;
   width: 100%;
   color: white;
-  // background-color: #666666;
+  background-color: #666666;
   align-content: center;
-  background-color: grey;
 }
 
 .search-field {
@@ -13,6 +12,18 @@
   align-content: center;
 }
 
-#search-input {
+#search-input-box {
   color: white;
+}
+
+// .search-year {
+//   display: flex;
+// }
+// .search-type {
+//   display: flex;
+// }
+
+.form-control {
+  color: white;
+  background-color: #666666;
 }

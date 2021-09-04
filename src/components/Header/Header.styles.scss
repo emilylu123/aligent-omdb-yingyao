@@ -1,0 +1,47 @@
+.logo {
+  font-size: 35px;
+  margin: 5px 20px;
+  color: white;
+  .title {
+    font-size: 25px;
+  }
+}
+
+.links {
+  align-items: center;
+  ul {
+    margin: 0px;
+  }
+}
+
+nav {
+  background: #0671ec;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  li {
+    color: #fff;
+    display: inline-block;
+    margin: 10px 20px;
+    list-style-type: none; /* Remove bullets */
+  }
+  a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    align-items: center;
+    border-radius: 5px;
+    background: #0671ec;
+    transition: all ease-in-out 0.2s;
+  }
+  .active {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  a:hover {
+    background: rgb(166, 175, 255);
+    transition: all ease-in-out 0.2s;
+  }
+}
