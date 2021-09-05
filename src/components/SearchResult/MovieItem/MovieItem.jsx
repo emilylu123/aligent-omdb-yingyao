@@ -11,18 +11,19 @@ export default function MovieItem(props) {
     // Executed on click
     <Container className={props.className} onClick={() => props.onClick(id)}>
       <Row>
-        <Col xs={3}>
+        <Col md={12} xl={3}>
           <img
             src={imgURL !== "N/A" ? imgURL : defaultPosterURL}
             alt="Poster"
+            className="movie-item-poster  d-none d-xl-block"
           />
         </Col>
-        <Col xs>
+        <Col md={12} xl={9}>
           <Row>
-            <div className="movie-name">{title}</div>
+            <div className="movie-item-title grey-font">{title}</div>
           </Row>
           <Row>
-            <div className="year">{year}</div>
+            <div className="movie-item-year grey-font">{year}</div>
           </Row>
         </Col>
       </Row>

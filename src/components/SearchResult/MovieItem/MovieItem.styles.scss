@@ -1,24 +1,24 @@
 .movie-item {
-  padding: 25px;
+  padding: 20px 0 20px 20px;
   border: 1px solid darkgray;
   border-top: 0ch;
 }
 
-img {
+.movie-item-poster {
   width: 100px;
   height: 100px;
   border-radius: 5px;
 }
 
-.movie-name {
-  color: rgb(117, 111, 111);
+.movie-item-title {
+  color: rgb(111, 111, 111);
   font-size: 22px;
   font-weight: 500;
-  padding: 0 15px;
 }
-.year {
+
+.movie-item-year {
   color: darkgray;
-  padding: 0px 3px;
-  margin: 0;
+  padding: 0px 5px;
+  margin: 5px 0;
   font-size: 16px;
 }

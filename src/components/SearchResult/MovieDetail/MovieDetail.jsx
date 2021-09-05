@@ -5,7 +5,6 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function MovieDetail(props) {
-  console.log("props.detail", props.info);
   const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info;
   const { Title, Type, Year, Poster } = props.basic;
   const [watchList, setWatchList] = useState(false);
@@ -28,14 +27,14 @@ export default function MovieDetail(props) {
   return (
     <Container>
       <Row>
-        <Col xs={3}>
+        <Col xs={12} md={3}>
           <img src={Poster} alt={Title} className="poster" />
         </Col>
-        <Col xs={9}>
+        <Col md={9}>
           <Container>
             <Row>
-              <Col xs={8}></Col>
-              <Col xs={4}>
+              <Col md={8}></Col>
+              <Col sm={12} md={4}>
                 <button
                   value={watchList}
                   onClick={toggleWatchList}
@@ -51,13 +50,13 @@ export default function MovieDetail(props) {
               </Col>
             </Row>
             <Row className="text-row">
-              <Col xs={12} className="detail-title-block">
-                <h1 className="detail-title gray-font"> {Title}</h1>
+              <Col xs={12}>
+                <h1 className="detail-title grey-font"> {Title}</h1>
                 <div className="detail-row">
-                  <p className="detail-rated gray-font ft-20">{Rated}</p>
-                  <p className="detail-year gray-font ft-20">{`  ${Year} · ${Genre} · ${Runtime}`}</p>
+                  <p className="detail-rated grey-font ft-20">{Rated}</p>
+                  <p className="detail-year grey-font ft-20">{`  ${Year} · ${Genre} · ${Runtime}`}</p>
                 </div>
-                <p className="detail-actors gray-font ft-20">{Actors}</p>
+                <p className="detail-actors grey-font ft-20">{Actors}</p>
               </Col>
             </Row>
           </Container>
@@ -67,20 +66,20 @@ export default function MovieDetail(props) {
       <hr />
       <Row>
         <Col>
-          <p className="detail-plot gray-font ft-20">{Plot} </p>
+          <p className="detail-plot grey-font ft-20">{Plot} </p>
         </Col>
       </Row>
       <hr />
 
       {Ratings ? (
-        <Row className="detail-ratings gray-font  ft-20">
-          <Col className="detail-rating">
-            <h5>{Ratings[0].Value}</h5>
-            <p>{Ratings[0].Source}</p>
+        <Row className="detail-ratings grey-font">
+          <Col className="detail-rating grey-font">
+            <h4>{Ratings[0].Value}</h4>
+            <h5>{Ratings[0].Source}</h5>
           </Col>
-          <Col>
-            <h5>{Ratings[1].Value}</h5>
-            <p>{Ratings[1].Source}</p>
+          <Col className="detail-rating grey-font">
+            <h4>{Ratings[1].Value}</h4>
+            <h5>{Ratings[1].Source}</h5>
           </Col>
         </Row>
       ) : null}

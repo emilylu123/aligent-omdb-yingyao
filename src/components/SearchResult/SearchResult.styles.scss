@@ -1,12 +1,24 @@
-.div {
-  margin: 0px;
-  padding: 0px;
-}
 .search-result-list {
   max-height: 850px;
   overflow-y: auto;
 }
 
+// add background color if selected
 .selected {
   background-color: rgba(211, 211, 211, 0.651);
+}
+
+.detail-container {
+  padding: 15px 0 15px 30px;
+}
+
+.total-result-counts {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  height: fit-content;
+  margin: 15px 0;
+  padding: 0 20px;
+
+  width: 100%;
 }

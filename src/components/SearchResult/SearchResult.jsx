@@ -33,7 +33,6 @@ export default function SearchResult(props) {
     try {
       const response = await fetch(detailURL);
       const data = await response.json();
-      console.log("getMovieDetail ->", data, typeof data);
       setMovieInfo(data);
     } catch (e) {
       console.error(e.toString);
@@ -49,7 +48,10 @@ export default function SearchResult(props) {
   return (
     <Container className="search-result-container">
       <Row>
-        <Col xs={4} className="search-result-list">
+        <Col xs={5} md={4} className="search-result-list">
+          <div className="total-result-counts grey-font">
+            {movies.length ? `${movies.length} / ${totalResults}  RESULTS` : ""}
+          </div>
           <InfiniteScroll
             dataLength={movies.length} //This is important field to render the next data
             next={loadMoreFn}
@@ -82,14 +84,14 @@ export default function SearchResult(props) {
           </InfiniteScroll>
           {movies.length <= totalResults ? (
             <LoadMore
-              isLoadingMore={props.isLoadingMore}
+              isLoading={props.isLoadingMore}
               loadMoreFn={props.loadMoreFn}
             />
           ) : (
             <div></div>
           )}
         </Col>
-        <Col xs={8}>
+        <Col xs={7} md={8} className="detail-container">
           {movieInfo ? (
             <MovieDetail basic={movies[selectId]} info={movieInfo} />
           ) : (

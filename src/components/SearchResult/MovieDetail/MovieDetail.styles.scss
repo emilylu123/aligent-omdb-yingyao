@@ -16,11 +16,9 @@
 .poster {
   margin: 25px 20px 10px 2px;
   width: 100%;
+  max-width: 280px;
   height: auto;
   border-radius: 8px;
-}
-
-.detail-title-block {
 }
 
 .detail-title {
@@ -52,27 +50,29 @@
 }
 
 .detail-plot {
-  margin: 10px 0px;
+  margin: 25px 50px 25px 0px;
   text-align: left;
   align-items: left;
 }
 
 .detail-ratings {
   text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .detail-rating {
-  width: 100px;
-  height: 60px;
   position: relative;
+  width: 100px;
+  height: 65px;
 }
 
 // add vertical line
 .detail-rating:after {
-  content: "";
-  height: 50px;
-  border-right: 2px solid gray;
   position: absolute;
+  content: "";
+  border-right: 2px solid lightgrey;
+  height: 60px;
   right: 0;
-  top: 10px;
+  top: 0px;
 }

@@ -67,6 +67,7 @@ export default function HomePage() {
   }
 
   function handleKeyword() {
+    setMovies([]);
     setSearch((prev) => {
       return {
         keyword: "",
@@ -76,6 +77,7 @@ export default function HomePage() {
         // type: prev.type,
       };
     });
+    getMovies();
     console.log("reset search keyword");
   }
 
@@ -143,11 +145,6 @@ export default function HomePage() {
         <Row>
           {/* render SearchResult if movies is not empty */}
           <Col>
-            {/* <p id="total-result-counts"> */}
-            {/* {movies.length
-                ? `${movies.length} / ${totalResults} RESULTS`
-                : ""} */}
-            {/* </p> */}
             {movies.length
               ? console.log("movies.length", movies.length, movies)
               : console.log("empty")}
@@ -161,7 +158,10 @@ export default function HomePage() {
                 loadMoreFn={loadMore}
               />
             ) : (
-              <p>No Movie found</p>
+              <div className="empty-keyword">
+                <h1>Welcome to OMDB</h1>
+                <h3>Please Enter KeyWord to Search Movie</h3>
+              </div>
             )}
           </Col>
         </Row>
