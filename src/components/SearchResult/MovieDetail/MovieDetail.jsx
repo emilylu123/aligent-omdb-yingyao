@@ -74,12 +74,28 @@ export default function MovieDetail(props) {
       {Ratings ? (
         <Row className="detail-ratings grey-font">
           <Col className="detail-rating grey-font">
-            <h4>{Ratings[0].Value}</h4>
-            <h5>{Ratings[0].Source}</h5>
+            {Ratings.length ? (
+              <div>
+                <h4>{Ratings[0].Value}</h4>
+                <h5>{Ratings[0].Source}</h5>
+              </div>
+            ) : null}
           </Col>
           <Col className="detail-rating grey-font">
-            <h4>{Ratings[1].Value}</h4>
-            <h5>{Ratings[1].Source}</h5>
+            {Ratings.length > 1 ? (
+              <div>
+                <h4>{Ratings[1].Value}</h4>
+                <h5>{Ratings[1].Source}</h5>
+              </div>
+            ) : null}
+          </Col>
+          <Col className="detail-rating grey-font">
+            {Ratings.length > 2 ? (
+              <div>
+                <h4>{Ratings[2].Value}</h4>
+                <h5>{Ratings[2].Source}</h5>
+              </div>
+            ) : null}
           </Col>
         </Row>
       ) : null}

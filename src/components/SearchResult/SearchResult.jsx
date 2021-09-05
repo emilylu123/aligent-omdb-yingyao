@@ -13,7 +13,8 @@ export default function SearchResult(props) {
     searchType,
     totalResults,
     movies,
-    loadMoreFn,
+    loadMoreMovies,
+    hasMore,
   } = props;
 
   const [selectId, setSelectId] = useState(0);
@@ -52,41 +53,43 @@ export default function SearchResult(props) {
           <div className="total-result-counts grey-font">
             {movies.length ? `${movies.length} / ${totalResults}  RESULTS` : ""}
           </div>
-          <InfiniteScroll
-            dataLength={movies.length} //This is important field to render the next data
-            next={loadMoreFn}
-            hasMore={true}
-            loader={<h4>Loading More...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            {movies.map(({ Title, Year, Type, Poster, imdbID }, index) => {
-              if (Year > startY && Year < endY) {
-                return (
-                  <MovieItem
-                    className={
-                      selectId === index ? "movie-item  selected" : "movie-item"
-                    } // change background color
-                    key={index}
-                    id={index}
-                    title={Title}
-                    year={Year}
-                    type={Type}
-                    imgURL={Poster}
-                    onClick={handleSelect}
-                  />
-                );
+          <div>
+            <InfiniteScroll
+              dataLength={movies.length} //This is important field to render the next data
+              next={loadMoreMovies}
+              hasMore={hasMore}
+              loader={<h4>Loading More...</h4>}
+              height={800}
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>`Yay! You have seen it all`</b>
+                </p>
               }
-            })}
-          </InfiniteScroll>
-          {movies.length <= totalResults ? (
-            <LoadMore
-              isLoading={props.isLoadingMore}
-              loadMoreFn={props.loadMoreFn}
-            />
+            >
+              {movies.map(({ Title, Year, Type, Poster, imdbID }, index) => {
+                if (Year > startY && Year < endY) {
+                  return (
+                    <MovieItem
+                      className={
+                        selectId === index
+                          ? "movie-item  selected"
+                          : "movie-item"
+                      } // change background color
+                      key={index}
+                      id={index}
+                      title={Title}
+                      year={Year}
+                      type={Type}
+                      imgURL={Poster}
+                      onClick={handleSelect}
+                    />
+                  );
+                }
+              })}
+            </InfiniteScroll>
+          </div>
+          {movies.length < totalResults ? (
+            <LoadMore loadMoreFn={loadMoreMovies} hasMore={hasMore} />
           ) : (
             <div></div>
           )}
@@ -95,7 +98,7 @@ export default function SearchResult(props) {
           {movieInfo ? (
             <MovieDetail basic={movies[selectId]} info={movieInfo} />
           ) : (
-            <div>Loading Movie Details...</div>
+            <h1>Loading Movie Details...</h1>
           )}
         </Col>
       </Row>
