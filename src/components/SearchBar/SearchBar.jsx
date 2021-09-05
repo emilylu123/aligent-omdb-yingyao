@@ -2,7 +2,6 @@ import React from "react";
 import "./SearchBar.styles.scss";
 import SearchYear from "./SearchYear/SearchYear";
 import SearchType from "./SearchType/SearchType";
-
 import { BsSearch } from "react-icons/bs";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 
@@ -10,29 +9,36 @@ function SearchBar(props) {
   const { keyword, year, type } = props.search;
 
   return (
-    <Container className="search-bar">
+    <Container className="search-bar-container">
       <Row>
-        <Col xs={4}>
-          <InputGroup className="search-input" size="lg">
+        {/* KEYWORD - search input box */}
+        <Col xs>
+          <InputGroup className="search-input-block" size="lg">
+            {/* search icon */}
             <InputGroup.Text>
-              <BsSearch />
+              <BsSearch id="search-icon" />
             </InputGroup.Text>
             <FormControl
               placeholder="Search Movies"
               aria-label="keyword"
               aria-describedby="basic-addon1"
               name="keyword"
-              id="search-input-box"
+              id="search-keyword-input"
               type="text"
               value={keyword}
+              onClick={props.onChangeKeyword}
               onChange={props.onChangeSearch}
             />
           </InputGroup>
         </Col>
-        <Col className="search-year" xs="auto">
+
+        {/* YEAR - change search year range with Material UI slider */}
+        <Col className="search-year-block" xs="auto">
           <SearchYear name="year" value={year} onChange={props.onChangeYear} />
         </Col>
-        <Col className="search-type" xs="auto">
+
+        {/* TYPE - change search type */}
+        <Col className="search-type-block" xs="auto">
           <SearchType
             name="type"
             value={type}

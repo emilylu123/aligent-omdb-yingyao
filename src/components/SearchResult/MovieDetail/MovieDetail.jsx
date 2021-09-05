@@ -51,11 +51,13 @@ export default function MovieDetail(props) {
               </Col>
             </Row>
             <Row className="text-row">
-              <Col xs={12} className="title-block">
-                <h1 className="title"> {Title}</h1>
-                <span className="rated">{Rated}</span>
-                <span className="year">{`  ${Year} · ${Genre} · ${Runtime}`}</span>
-                <p id="actors">{Actors}</p>
+              <Col xs={12} className="detail-title-block">
+                <h1 className="detail-title gray-font"> {Title}</h1>
+                <div className="detail-row">
+                  <p className="detail-rated gray-font ft-20">{Rated}</p>
+                  <p className="detail-year gray-font ft-20">{`  ${Year} · ${Genre} · ${Runtime}`}</p>
+                </div>
+                <p className="detail-actors gray-font ft-20">{Actors}</p>
               </Col>
             </Row>
           </Container>
@@ -64,18 +66,20 @@ export default function MovieDetail(props) {
 
       <hr />
       <Row>
-        <Col id="plot">{Plot} </Col>
+        <Col>
+          <p className="detail-plot gray-font ft-20">{Plot} </p>
+        </Col>
       </Row>
       <hr />
 
       {Ratings ? (
-        <Row className="ratings">
-          <Col className="rating">
-            <p>{Ratings[0].Value}</p>
+        <Row className="detail-ratings gray-font  ft-20">
+          <Col className="detail-rating">
+            <h5>{Ratings[0].Value}</h5>
             <p>{Ratings[0].Source}</p>
           </Col>
           <Col>
-            <p>{Ratings[1].Value}</p>
+            <h5>{Ratings[1].Value}</h5>
             <p>{Ratings[1].Source}</p>
           </Col>
         </Row>

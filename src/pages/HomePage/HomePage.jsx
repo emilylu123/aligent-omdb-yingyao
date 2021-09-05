@@ -2,25 +2,27 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import { Container, Row, Col } from "react-bootstrap";
+import "./HomePage.styles.scss";
 
 export default function HomePage() {
   // movies - search results fetching from the omdb API
   const [movies, setMovies] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   // search - search conditions set from search-bar
+  const displayYear = new Date().getFullYear();
+
+  // set default search value
   const [search, setSearch] = useState({
     keyword: "star",
-
-    year: [1970, 2021],
-    type: "",
+    year: [1970, displayYear],
+    type: "", // default type '' - any
   });
   // page - add to URL to load more search results from the omdb API
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  // omdb API_KEY and URL
   const API_KEY = "866364e";
   const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${page}`;
-  const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&t=${search.keyword}`;
 
   // async function to fetch movie list(array) from OMDB API
   // each movie is shown as {Poster,Title,Type,Year,imdbID}
@@ -29,8 +31,9 @@ export default function HomePage() {
       const response = await fetch(listURL);
       const data = await response.json();
       console.log("Get Movie data -from omdb API>>", data);
-      if (data.Response) {
-        if (movies.length === 0) {
+      if (data.Response === "True") {
+        if (!movies.length) {
+          console.log("1st time set movies", data.Response);
           setMovies(data.Search);
           setTotalResults(data.totalResults);
         } else {
@@ -55,13 +58,25 @@ export default function HomePage() {
       result.totalResults,
       result.Response
     );
-    setTotalResults(result.totalResults);
-
     console.log("load more movies", movies.length);
+    setTotalResults(result.totalResults);
 
     setMovies((prev) => {
       return prev.concat(result.Search);
     });
+  }
+
+  function handleKeyword() {
+    setSearch((prev) => {
+      return {
+        keyword: "",
+        year: [1970, displayYear],
+        type: "", // default type '' - any
+        // year: prev.year,
+        // type: prev.type,
+      };
+    });
+    console.log("reset search keyword");
   }
 
   function handleChangeYear(value) {
@@ -120,26 +135,35 @@ export default function HomePage() {
           <SearchBar
             className="search-bar"
             search={search}
+            onChangeKeyword={handleKeyword}
             onChangeYear={handleChangeYear}
             onChangeSearch={handleChangeSearch}
           />
         </Row>
         <Row>
           {/* render SearchResult if movies is not empty */}
-          <p>{movies.length}</p>
-          {movies.length ? (
-            <SearchResult
-              className="search-result"
-              movies={movies}
-              totalResults={totalResults}
-              searchYearRange={search.year}
-              searchType={search.type}
-              loadMoreFn={loadMore}
-              isLoadingMore={isLoadingMore}
-            />
-          ) : (
-            <p>No Movie found</p>
-          )}
+          <Col>
+            {/* <p id="total-result-counts"> */}
+            {/* {movies.length
+                ? `${movies.length} / ${totalResults} RESULTS`
+                : ""} */}
+            {/* </p> */}
+            {movies.length
+              ? console.log("movies.length", movies.length, movies)
+              : console.log("empty")}
+            {movies.length ? (
+              <SearchResult
+                className="search-result"
+                movies={movies}
+                totalResults={totalResults}
+                searchYearRange={search.year}
+                searchType={search.type}
+                loadMoreFn={loadMore}
+              />
+            ) : (
+              <p>No Movie found</p>
+            )}
+          </Col>
         </Row>
       </Container>
     </div>

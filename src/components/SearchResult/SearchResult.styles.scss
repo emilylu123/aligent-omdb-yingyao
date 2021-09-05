@@ -1,4 +1,12 @@
+.div {
+  margin: 0px;
+  padding: 0px;
+}
 .search-result-list {
-  max-height: 750px;
+  max-height: 850px;
   overflow-y: auto;
+}
+
+.selected {
+  background-color: rgba(211, 211, 211, 0.651);
 }

@@ -1,12 +1,24 @@
-
-.selected {
-  background-color: #ebebeb;
-  border-color: #d0d0d0;
-}
-
 .movie-item {
+  padding: 25px;
+  border: 1px solid darkgray;
+  border-top: 0ch;
 }
+
 img {
   width: 100px;
   height: 100px;
+  border-radius: 5px;
+}
+
+.movie-name {
+  color: rgb(117, 111, 111);
+  font-size: 22px;
+  font-weight: 500;
+  padding: 0 15px;
+}
+.year {
+  color: darkgray;
+  padding: 0px 3px;
+  margin: 0;
+  font-size: 16px;
 }

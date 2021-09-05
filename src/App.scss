@@ -2,6 +2,7 @@
 
 .App {
   color: rgb(22, 20, 20);
+  font-family: "Roboto", sans-serif;
 }
 
 .App-header {
@@ -25,21 +26,18 @@
 
 @media (min-width: 768px) {
   .container {
+    padding: 0px;
     max-width: 100%;
   }
 }
 
 @media (min-width: 992px) {
   .container {
+    padding: 0px;
     max-width: 100%;
   }
 }
 
-.full-width {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+.gray-font {
+  color: grey;
 }

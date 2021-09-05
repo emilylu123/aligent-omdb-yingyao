@@ -1,64 +1,74 @@
-body {
-  color: rgb(19, 18, 18);
-  align-items: left;
-  text-align: left;
-  margin: 0px;
-
-  .watchlistBtn {
-    margin-top: 20px;
-    margin-left: auto;
-    height: 45px;
-    border-radius: 5px;
-    background-color: white;
-    .bookmark {
-      margin: 2px 5px;
-    }
-  }
-
-  .poster {
-    margin: 20px 20px 10px 20px;
-    width: 80%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  .title {
-    margin: 10px 0px;
-  }
-
-  .rated {
-    padding: 1px 5px;
-    border-radius: 3px;
-    border: 1px solid black;
-  }
-
-  .year {
-    align-items: left;
-    margin: 15px;
-  }
-
-  #actors {
-    text-align: left;
-    align-items: left;
-  }
-
-  #plot {
-    padding: 10px 20px;
-    text-align: left;
-    align-items: left;
+.watchlistBtn {
+  margin-top: 25px;
+  margin-left: auto;
+  height: 45px;
+  border-radius: 5px;
+  background-color: white;
+  .bookmark {
+    margin: 2px 5px;
   }
 }
-.ratings {
+
+.ft-20 {
+  font-size: 20px;
+}
+
+.poster {
+  margin: 25px 20px 10px 2px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.detail-title-block {
+}
+
+.detail-title {
+  font-weight: 900;
+  margin: 50px 50px 20px 0px;
+}
+
+.detail-rated {
+  display: inline;
+  font-weight: 200;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+.detail-row {
+  margin: 25px 0;
+}
+
+.detail-year {
+  display: inline;
+  align-items: left;
+  margin: 0 10px;
+}
+
+.detail-actors {
+  text-align: left;
+  align-items: left;
+}
+
+.detail-plot {
+  margin: 10px 0px;
+  text-align: left;
+  align-items: left;
+}
+
+.detail-ratings {
   text-align: center;
 }
 
-.rating {
+.detail-rating {
   width: 100px;
   height: 60px;
   position: relative;
 }
 
-.rating:after {
+// add vertical line
+.detail-rating:after {
   content: "";
   height: 50px;
   border-right: 2px solid gray;

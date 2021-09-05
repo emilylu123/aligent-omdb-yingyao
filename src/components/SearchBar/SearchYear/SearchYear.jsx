@@ -3,10 +3,12 @@ import "./SearchYear.styles.scss";
 import { Grid, Slider, Typography } from "@material-ui/core";
 
 export default function SelectYear(props) {
-  const [value, setValue] = React.useState([1970, 2021]);
+  const YEAR_END = new Date().getFullYear(); // dynamically set as current year
+  const [yearRange, setYearRange] = React.useState([1970, YEAR_END]);
 
-  function handleChange(e, data) {
-    setValue(data);
+  // change yearRange with sliders
+  function handleChangeRange(e, data) {
+    setYearRange(data);
   }
 
   return (
@@ -20,20 +22,20 @@ export default function SelectYear(props) {
           <Slider
             color="secondary"
             name="year"
-            value={value}
+            value={yearRange}
             min={1970}
-            max={2021}
-            // defaultValue={[1970, 2021]}
+            max={YEAR_END}
+            // fired when the slider's value changed
+            onChange={handleChangeRange}
+            // callback function fired when mouseup it triggered
             onChangeCommitted={(e) => {
-              console.log("onChangeCommitted", value);
-              props.onChange(value);
+              props.onChange(yearRange);
             }}
-            onChange={handleChange}
             valueLabelDisplay="auto"
             getAriaLabel={(index) => (index === 0 ? "Start" : "End")}
           />
         </Grid>
-        <Grid item>2021</Grid>
+        <Grid item>{YEAR_END}</Grid>
       </Grid>
     </div>
   );
