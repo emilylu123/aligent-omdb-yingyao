@@ -10,6 +10,7 @@ export default function App() {
   return (
     <div className="App">
       <Header />
+      {/* Use react-router-dom to manage routing between HomePage and WatchListPage*/}
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/watchlist' component={WatchListPage} />

@@ -4,14 +4,20 @@ import SearchResult from "../../components/SearchResult/SearchResult";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function HomePage() {
-  const [movies, setMovies] = useState({});
+  // movies - search results fetching from the omdb API
+  const [movies, setMovies] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
+  // search - search conditions set from search-bar
   const [search, setSearch] = useState({
     keyword: "star",
+
     year: [1970, 2021],
     type: "",
   });
+  // page - add to URL to load more search results from the omdb API
   const [page, setPage] = useState(1);
-
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const API_KEY = "866364e";
   const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${page}`;
   const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&t=${search.keyword}`;
@@ -22,12 +28,41 @@ export default function HomePage() {
     try {
       const response = await fetch(listURL);
       const data = await response.json();
-      console.log("Get Movie data ->>", data);
-      setMovies(data);
+      console.log("Get Movie data -from omdb API>>", data);
+      if (data.Response) {
+        if (movies.length === 0) {
+          setMovies(data.Search);
+          setTotalResults(data.totalResults);
+        } else {
+          handleResult(data);
+        }
+      }
     } catch (e) {
       console.error(e.toString);
     }
   };
+
+  function loadMore() {
+    setPage(page + 1);
+    console.log("Loading More movies... Page:", page);
+    getMovies();
+  }
+
+  function handleResult(result) {
+    console.log(
+      "in handleResult",
+      result.Search,
+      result.totalResults,
+      result.Response
+    );
+    setTotalResults(result.totalResults);
+
+    console.log("load more movies", movies.length);
+
+    setMovies((prev) => {
+      return prev.concat(result.Search);
+    });
+  }
 
   function handleChangeYear(value) {
     setSearch((prev) => {
@@ -74,11 +109,6 @@ export default function HomePage() {
     getMovies();
   }
 
-  function handleNextPage() {
-    setPage(page + 1);
-    getMovies();
-  }
-
   useEffect(() => {
     getMovies(); //fetch data from api
   }, []);
@@ -95,17 +125,21 @@ export default function HomePage() {
           />
         </Row>
         <Row>
-          {movies.Response === "True" ? (
+          {/* render SearchResult if movies is not empty */}
+          <p>{movies.length}</p>
+          {movies.length ? (
             <SearchResult
               className="search-result"
-              yearRange={search.year}
-              type={search.type}
-              result={movies}
+              movies={movies}
+              totalResults={totalResults}
+              searchYearRange={search.year}
+              searchType={search.type}
+              loadMoreFn={loadMore}
+              isLoadingMore={isLoadingMore}
             />
           ) : (
             <p>No Movie found</p>
           )}
-          <a onClick={handleNextPage}> Next </a>
         </Row>
       </Container>
     </div>

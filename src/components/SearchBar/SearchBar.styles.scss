@@ -6,22 +6,26 @@
   align-content: center;
 }
 
-.search-field {
-  display: flex;
-  align-items: center;
-  align-content: center;
-}
-
 #search-input-box {
   color: white;
 }
 
-// .search-year {
-//   display: flex;
-// }
-// .search-type {
-//   display: flex;
-// }
+.search-input {
+  margin: 10px 50px;
+  width: 60%;
+  align-self: flex-end;
+}
+
+.search-year {
+  width: 33%;
+  margin-top: 3px;
+  float: right;
+}
+.search-type {
+  margin-top: 3px;
+  margin-left: 50px;
+  float: right;
+}
 
 .form-control {
   color: white;

@@ -12,8 +12,8 @@ function SearchBar(props) {
   return (
     <Container className="search-bar">
       <Row>
-        <Col className="search-input" xs="auto">
-          <InputGroup size="lg" className="mb-3">
+        <Col xs={4}>
+          <InputGroup className="search-input" size="lg">
             <InputGroup.Text>
               <BsSearch />
             </InputGroup.Text>

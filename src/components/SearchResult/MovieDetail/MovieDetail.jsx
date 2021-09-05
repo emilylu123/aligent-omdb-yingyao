@@ -28,26 +28,31 @@ export default function MovieDetail(props) {
   return (
     <Container>
       <Row>
-        <Col xs={4}>
+        <Col xs={3}>
           <img src={Poster} alt={Title} className="poster" />
         </Col>
-        <Col xs={8}>
+        <Col xs={9}>
           <Container>
             <Row>
-              <Col>
+              <Col xs={8}></Col>
+              <Col xs={4}>
                 <button
                   value={watchList}
                   onClick={toggleWatchList}
-                  className="watchlist"
+                  className="watchlistBtn"
                 >
-                  {watchList ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                  {watchList ? (
+                    <BookmarkIcon className="bookmark" />
+                  ) : (
+                    <BookmarkBorderIcon className="bookmark" />
+                  )}
                   Watchlist
                 </button>
               </Col>
             </Row>
-            <Row className="title-block">
-              <Col xs={12}>
-                <h2 className="title"> {Title}</h2>
+            <Row className="text-row">
+              <Col xs={12} className="title-block">
+                <h1 className="title"> {Title}</h1>
                 <span className="rated">{Rated}</span>
                 <span className="year">{`  ${Year} · ${Genre} · ${Runtime}`}</span>
                 <p id="actors">{Actors}</p>
@@ -64,8 +69,8 @@ export default function MovieDetail(props) {
       <hr />
 
       {Ratings ? (
-        <Row className='ratings'>
-          <Col className='rating'>
+        <Row className="ratings">
+          <Col className="rating">
             <p>{Ratings[0].Value}</p>
             <p>{Ratings[0].Source}</p>
           </Col>
