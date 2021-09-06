@@ -26,7 +26,7 @@ export default function HomePage() {
 
   // omdb API_KEY and URL
   const API_KEY = "866364e";
-  const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${search.page}`;
+  const listURL = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${search.page}`;
 
   useEffect(() => {
     getMovies(); //fetch data from API

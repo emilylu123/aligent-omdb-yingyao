@@ -12,7 +12,7 @@ export default function SearchResult(props) {
   const [movieInfo, setMovieInfo] = useState({});
 
   const API_KEY = "866364e";
-  const detailURL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${imdb}`;
+  const detailURL = `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdb}`;
 
   useEffect(() => {
     //fetch data from omdb API with imdbId
