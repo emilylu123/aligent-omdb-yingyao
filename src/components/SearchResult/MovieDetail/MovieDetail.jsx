@@ -10,6 +10,8 @@ export default function MovieDetail(props) {
   const { Title, Year, Poster, imdbID } = props.basic;
   const [collection, setCollection] = useState([]);
   const [watchList, setWatchList] = useState(false);
+  const defaultPosterURL =
+    "https://plk.s6img.com/society6/img/bwP7wn9OIz8OA6hivfNNJMjufCw/w_700/posters/top/~artwork,fw_2718,fh_3618,fy_-3,iw_2718,ih_3623/s6-original-art-uploads/society6/uploads/misc/f7aa6773e46147a4a39e223774f8ec28/~~/be-kind-rainbow-posters.jpg";
 
   useEffect(() => {
     // add dark bookmark if the movie is in the watchList
@@ -54,7 +56,11 @@ export default function MovieDetail(props) {
     <Container>
       <Row>
         <Col xs={12} md={3}>
-          <img src={Poster} alt={Title} className="poster" />
+          <img
+            src={Poster !== "N/A" ? Poster : defaultPosterURL}
+            alt={Title}
+            className="poster"
+          />
         </Col>
         <Col md={9}>
           <Container>
