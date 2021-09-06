@@ -3,13 +3,15 @@ import "./MovieItem.styles.scss";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function MovieItem(props) {
+  const { title, year, imgURL, id, onClick } = props;
+
+  // use defaultPosterURL if imgURL is not available
   const defaultPosterURL =
     "https://allaboutvanya.files.wordpress.com/2012/02/ilovemovies2.jpg";
-  const { title, year, imgURL, id } = props;
 
   return (
     // Executed on click
-    <Container className={props.className} onClick={() => props.onClick(id)}>
+    <Container className={props.className} onClick={() => onClick(id)}>
       <Row>
         <Col md={12} xl={3}>
           <img

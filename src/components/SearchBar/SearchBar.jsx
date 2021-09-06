@@ -7,6 +7,7 @@ import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 
 function SearchBar(props) {
   const { keyword, year, type } = props.search;
+  const { onClearKeyword, onChangeYear, onChangeType, onChangeSearch } = props;
 
   return (
     <Container className="search-bar-container">
@@ -26,24 +27,20 @@ function SearchBar(props) {
               id="search-keyword-input"
               type="text"
               value={keyword}
-              onClick={props.onChangeKeyword}
-              onChange={props.onChangeSearch}
+              onClick={onClearKeyword}
+              onChange={onChangeSearch}
             />
           </InputGroup>
         </Col>
 
         {/* YEAR - change search year range with Material UI slider */}
         <Col className="search-year-block" xs="auto">
-          <SearchYear name="year" value={year} onChange={props.onChangeYear} />
+          <SearchYear name="year" value={year} onChange={onChangeYear} />
         </Col>
 
         {/* TYPE - change search type */}
         <Col className="search-type-block" xs="auto">
-          <SearchType
-            name="type"
-            value={type}
-            onChange={props.onChangeSearch}
-          />
+          <SearchType name="type" value={type} onChange={onChangeType} />
         </Col>
       </Row>
     </Container>

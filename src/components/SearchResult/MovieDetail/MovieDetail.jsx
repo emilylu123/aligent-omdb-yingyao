@@ -1,27 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MovieDetail.styles.scss";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+
 import { Container, Row, Col } from "react-bootstrap";
+import WatchListSideBar from "../WatchListSideBar/WatchListSideBar";
+import AddToWatchList from "./AddToWatchList/AddToWatchList";
 
 export default function MovieDetail(props) {
   const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info;
-  const { Title, Type, Year, Poster } = props.basic;
+  const { Title, Type, Year, Poster, imdbID } = props.basic;
+  const [collection, setCollection] = useState([]);
   const [watchList, setWatchList] = useState(false);
-  // const [collection, setCollection] = useState([]);
+
+  useEffect(() => {
+    // clear up watchlist btn
+    checkWatchList();
+    return () => {
+      setWatchList(false);
+    };
+  }, [imdbID]);
 
   function toggleWatchList() {
     setWatchList((prevValue) => {
       return !prevValue;
     });
-    // todo: handle add to watch list array and display later on WatchListPage
-    // const item = props.detail;
-    // if (watchList) {
-    //   setCollection((prevValue) => {
-    //     return [...prevValue, props.detail];
-    //   });
-    //   console.log(collection);
-    // }
+    // TODO: handle add to watch list array and display later on WatchListPage
+    watchList ? removeFromList() : addToList();
+  }
+
+  function addToList() {
+    setCollection((prev) => {
+      if (!collection.includes(imdbID)) {
+        return [...prev, imdbID];
+      }
+      console.log("skip for repeated movie");
+      return prev;
+    });
+  }
+
+  function removeFromList() {
+    setCollection((prev) => {
+      if (collection.includes(imdbID)) {
+        return prev.filter((item) => {
+          return item !== imdbID;
+        });
+      } else {
+        return prev;
+      }
+    });
+  }
+
+  //
+  function checkWatchList() {
+    setWatchList(collection.includes(imdbID));
   }
 
   return (
@@ -33,20 +63,17 @@ export default function MovieDetail(props) {
         <Col md={9}>
           <Container>
             <Row>
-              <Col md={8}></Col>
-              <Col sm={12} md={4}>
-                <button
-                  value={watchList}
+              <Col md={6}></Col>
+              <Col sm={12} md>
+                <AddToWatchList
                   onClick={toggleWatchList}
-                  className="watchlistBtn"
-                >
-                  {watchList ? (
-                    <BookmarkIcon className="bookmark" />
-                  ) : (
-                    <BookmarkBorderIcon className="bookmark" />
-                  )}
-                  Watchlist
-                </button>
+                  onWatchList={watchList}
+                />
+                <WatchListSideBar
+                  listData={collection}
+                  placement={"end"}
+                  className="myWatchListBtn"
+                />
               </Col>
             </Row>
             <Row className="text-row">
@@ -62,7 +89,6 @@ export default function MovieDetail(props) {
           </Container>
         </Col>
       </Row>
-
       <hr />
       <Row>
         <Col>
@@ -70,35 +96,38 @@ export default function MovieDetail(props) {
         </Col>
       </Row>
       <hr />
-
       {Ratings ? (
         <Row className="detail-ratings grey-font">
-          <Col className="detail-rating grey-font">
-            {Ratings.length ? (
-              <div>
-                <h4>{Ratings[0].Value}</h4>
-                <h5>{Ratings[0].Source}</h5>
-              </div>
-            ) : null}
-          </Col>
-          <Col className="detail-rating grey-font">
-            {Ratings.length > 1 ? (
-              <div>
-                <h4>{Ratings[1].Value}</h4>
-                <h5>{Ratings[1].Source}</h5>
-              </div>
-            ) : null}
-          </Col>
-          <Col className="detail-rating grey-font">
-            {Ratings.length > 2 ? (
-              <div>
-                <h4>{Ratings[2].Value}</h4>
-                <h5>{Ratings[2].Source}</h5>
-              </div>
-            ) : null}
-          </Col>
+          {Ratings.length ? (
+            <Col className="detail-rating grey-font">
+              <h4>{Ratings[0].Value}</h4>
+              <h5>{Ratings[0].Source}</h5>
+            </Col>
+          ) : null}
+          {Ratings.length > 1 ? (
+            <Col className="detail-rating grey-font">
+              <h4>{Ratings[1].Value}</h4>
+              <h5>{Ratings[1].Source}</h5>
+            </Col>
+          ) : null}
+          {/* 3rd column is optional due to the API rating results */}
+          {Ratings.length > 2 ? (
+            <Col className="detail-rating grey-font">
+              <h4>{Ratings[2].Value}</h4>
+              <h5>{Ratings[2].Source}</h5>
+            </Col>
+          ) : null}
         </Row>
       ) : null}
+      <hr />
+      <Row>
+        <Col className="grey-font">
+          <h5>My movie watch list (Total {collection.length} items):</h5>
+          {collection.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
+        </Col>
+      </Row>
     </Container>
   );
 }

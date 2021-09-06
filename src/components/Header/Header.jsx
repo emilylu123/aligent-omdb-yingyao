@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.styles.scss";
 import { BiCameraMovie } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -9,7 +9,9 @@ export default function Header() {
       <nav>
         <div className="logo">
           <BiCameraMovie className="logo" />
-          <span className="header">Open Movie Database</span>
+          <Link to="/">
+            <span className="header">Open Movie Database</span>
+          </Link>
         </div>
         <div className="links">
           <ul>
@@ -18,8 +20,12 @@ export default function Header() {
               <NavLink to="/">Search Movie</NavLink>
             </li>
             <li>
-              <NavLink to="/watchlist">My WatchList</NavLink>
+              <NavLink to="/watchlist">WatchList Page</NavLink>
             </li>
+            {/* watch list sidebar */}
+            {/* <li>
+              <WatchListData placement={"end"} className="watch-list-link" />
+            </li> */}
           </ul>
         </div>
       </nav>

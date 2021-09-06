@@ -3,7 +3,7 @@ import "./LoadMore.styles.scss";
 import { Button } from "react-bootstrap";
 
 export default function LoadMore(props) {
-  const { loadMoreFn, hasMore } = props;
+  const { loadMoreFn } = props;
   return (
     <div className="load-more-btn d-grid gap-2">
       <Button variant="secondary" onClick={loadMoreFn}>

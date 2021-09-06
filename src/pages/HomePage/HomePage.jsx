@@ -10,24 +10,27 @@ export default function HomePage() {
   const [totalResults, setTotalResults] = useState(0);
 
   // search - search conditions set from search-bar
-  const displayYear = new Date().getFullYear();
-  const [clearKeyword, setClearKeyWord] = useState(false);
+  const displayCurrentYear = new Date().getFullYear();
+  const [clearTag, setClearTag] = useState(false);
 
   // set default search value
   const [search, setSearch] = useState({
     keyword: "star",
-    year: [1970, displayYear],
+    year: [1970, displayCurrentYear],
     type: "", // default type '' - any
     page: 1,
   });
 
   // page - add to URL to load more search results from the omdb API
-  // const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   // omdb API_KEY and URL
   const API_KEY = "866364e";
   const listURL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${search.page}`;
+
+  useEffect(() => {
+    getMovies(); //fetch data from API
+  }, [search]);
 
   // async function to fetch movie list(array) from OMDB API
   // each movie is shown as {Poster,Title,Type,Year,imdbID}
@@ -35,9 +38,14 @@ export default function HomePage() {
     try {
       const response = await fetch(listURL);
       const data = await response.json();
-      console.log("Get Movie data -from omdb API>>", data);
+      console.log("Get Movie data -from omdb API>>", listURL, data);
       if (data.Response === "True") {
-        if (!movies.length && !clearKeyword) {
+        if (clearTag) {
+          console.log("Clear movies");
+          setMovies([]);
+        }
+
+        if (movies.length === 0) {
           console.log("1st time set movies", data.Response);
           setMovies(data.Search);
           setTotalResults(data.totalResults);
@@ -50,31 +58,7 @@ export default function HomePage() {
     }
   }
 
-  function loadMoreMovies() {
-    // setPage((prev) => {
-    //   return prev + 1;
-    // });
-    setSearch((prev) => {
-      return {
-        keyword: prev.keyword,
-        year: prev.year,
-        type: prev.type,
-        page: prev.page + 1,
-      };
-    });
-
-    console.log("Loading More movies... Page:", search.page);
-    getMovies();
-  }
-
   function handleResult(result) {
-    // console.log(
-    //   "in handleResult",
-    //   result.Search,
-    //   result.totalResults,
-    //   result.Response
-    // );
-    // console.log("load more movies", movies.length);//
     setTotalResults(result.totalResults);
     if (movies.length >= totalResults) {
       setHasMore(false);
@@ -84,74 +68,50 @@ export default function HomePage() {
     });
   }
 
-  function handleKeyword() {
-    setClearKeyWord(true);
-    setMovies([]);
+  const handleKeyword = () => {
     setSearch((prev) => {
       return {
+        ...prev,
         keyword: "",
-        year: [1970, displayYear],
-        type: "", // default type '' - any
         page: 1,
       };
     });
-    getMovies();
-    console.log("reset search keyword");
-  }
+    // add clear tag to reset movies
+    setClearTag(true);
+  };
 
+  // filter movie-item display in the year range
   function handleChangeYear(value) {
     setSearch((prev) => {
       return {
-        keyword: prev.keyword,
+        ...prev,
         year: value,
-        type: prev.type,
-        page: prev.page,
       };
     });
   }
 
-  function handleChangeType(e) {
-    console.log("handleChangeType", e.target.value);
-    setSearch((prev) => {
-      return {
-        keyword: prev.keyword,
-        year: prev.year,
-        type: e.target.value,
-        page: prev.page,
-      };
-    });
-    getMovies();
-  }
-
+  // change keyword and type and rerender API call
   function handleChangeSearch(event) {
     const { name, value } = event.target;
-
     console.log("handleSearchChange <- ", name, value);
     setSearch((prev) => {
-      if (name === "type") {
-        return {
-          keyword: prev.keyword,
-          year: prev.year,
-          type: value,
-          page: prev.page,
-        };
-      } else if (name === "keyword") {
-        setMovies([]);
-        return {
-          keyword: value,
-          year: prev.year,
-          type: "",
-          page: 1,
-        };
-      }
+      return {
+        ...prev,
+        [name]: value,
+      };
     });
-    console.log("handleSearchChange ->", search);
-    getMovies();
+    setClearTag(true);
+    // setMovies([]);
   }
 
-  useEffect(() => {
-    getMovies(); //fetch data from API
-  }, []);
+  function loadMoreMovies() {
+    setSearch((prev) => {
+      return {
+        ...prev,
+        page: prev.page + 1,
+      };
+    });
+  }
 
   return (
     <div className="homepage">
@@ -160,24 +120,21 @@ export default function HomePage() {
           <SearchBar
             className="search-bar"
             search={search}
-            onChangeKeyword={handleKeyword}
+            onClearKeyword={handleKeyword}
             onChangeYear={handleChangeYear}
+            onChangeType={handleChangeSearch}
             onChangeSearch={handleChangeSearch}
           />
         </Row>
         <Row>
           {/* render SearchResult if movies is not empty */}
           <Col>
-            {movies.length
-              ? console.log("movies.length", movies.length, movies)
-              : console.log("empty")}
             {movies.length ? (
               <SearchResult
                 className="search-result"
                 movies={movies}
+                search={search}
                 totalResults={totalResults}
-                searchYearRange={search.year}
-                searchType={search.type}
                 loadMoreMovies={loadMoreMovies}
                 hasMore={hasMore}
               />
