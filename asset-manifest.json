@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/aligent-omdb-yingyao/static/css/main.766e9820.chunk.css",
-    "main.js": "/aligent-omdb-yingyao/static/js/main.3a4466e0.chunk.js",
-    "main.js.map": "/aligent-omdb-yingyao/static/js/main.3a4466e0.chunk.js.map",
+    "main.js": "/aligent-omdb-yingyao/static/js/main.ba144375.chunk.js",
+    "main.js.map": "/aligent-omdb-yingyao/static/js/main.ba144375.chunk.js.map",
     "runtime-main.js": "/aligent-omdb-yingyao/static/js/runtime-main.beb4e7a5.js",
     "runtime-main.js.map": "/aligent-omdb-yingyao/static/js/runtime-main.beb4e7a5.js.map",
     "static/js/2.37876b9b.chunk.js": "/aligent-omdb-yingyao/static/js/2.37876b9b.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.beb4e7a5.js",
     "static/js/2.37876b9b.chunk.js",
     "static/css/main.766e9820.chunk.css",
-    "static/js/main.3a4466e0.chunk.js"
+    "static/js/main.ba144375.chunk.js"
   ]
 }
