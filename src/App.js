@@ -15,6 +15,7 @@ export default function App() {
         {/* Route - Renders a UI component by URL*/}
         <Route exact path='/' component={HomePage} />
         <Route path='/watchlist' component={WatchListPage} />
+        <Route path='*' component={HomePage} />
       </Switch>
     </div>
   );

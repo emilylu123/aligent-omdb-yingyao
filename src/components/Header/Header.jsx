@@ -10,17 +10,21 @@ export default function Header() {
         <div className="logo">
           <BiCameraMovie className="logo" />
           <Link to="/">
-            <span className="header">Open Movie Database</span>
+            <span className="header-title">Open Movie Database</span>
           </Link>
         </div>
         <div className="links">
           <ul>
             <li>
               {/* NavLink - renders a navigation link with react-router-dom */}
-              <NavLink to="/">Search Movie</NavLink>
+              <NavLink to="/" className="header-link">
+                Search Movie
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/watchlist">WatchList Page</NavLink>
+              <NavLink to="/watchlist" className="header-link">
+                WatchList Page
+              </NavLink>
             </li>
             {/* watch list sidebar */}
             {/* <li>

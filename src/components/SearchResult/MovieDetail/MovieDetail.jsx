@@ -7,17 +7,18 @@ import AddToWatchList from "./AddToWatchList/AddToWatchList";
 
 export default function MovieDetail(props) {
   const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info;
-  const { Title, Type, Year, Poster, imdbID } = props.basic;
+  const { Title, Year, Poster, imdbID } = props.basic;
   const [collection, setCollection] = useState([]);
   const [watchList, setWatchList] = useState(false);
 
   useEffect(() => {
-    // clear up watchlist btn
-    checkWatchList();
+    // add dark bookmark if the movie is in the watchList
+    setWatchList(collection.includes(imdbID));
     return () => {
+      // clean up bookmark tag
       setWatchList(false);
     };
-  }, [imdbID]);
+  }, [imdbID, watchList, collection]);
 
   function toggleWatchList() {
     setWatchList((prevValue) => {
@@ -47,11 +48,6 @@ export default function MovieDetail(props) {
         return prev;
       }
     });
-  }
-
-  //
-  function checkWatchList() {
-    setWatchList(collection.includes(imdbID));
   }
 
   return (

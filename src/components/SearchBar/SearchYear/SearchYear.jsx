@@ -1,6 +1,39 @@
 import React from "react";
 import "./SearchYear.styles.scss";
-import { Grid, Slider, Typography } from "@material-ui/core";
+import { Slider } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { Row, Col } from "react-bootstrap";
+
+// custom slider style and color
+const RangeSlider = withStyles({
+  root: {
+    color: "grey",
+    height: 6,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    marginTop: -8,
+    marginLeft: -12,
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  // valueLabel: {
+  //   left: "calc(-50% + 4px)",
+  // },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
 
 export default function SelectYear(props) {
   const YEAR_END = new Date().getFullYear(); // dynamically set as current year
@@ -13,30 +46,32 @@ export default function SelectYear(props) {
 
   return (
     <div className="search-year">
-      <Typography id="year-slider" gutterBottom>
-        YEAR
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item>1970</Grid>
-        <Grid item xs>
-          <Slider
-            color="secondary"
+      YEAR
+      <Row>
+        <Col xs="auto" className="year-title">
+          1970
+        </Col>
+        <Col xs>
+          <RangeSlider
             name="year"
             value={yearRange}
             min={1970}
             max={YEAR_END}
+            valueLabelDisplay="auto"
+            defaultValue={[1970, YEAR_END]}
             // fired when the slider's value changed
             onChange={handleChangeRange}
             // callback function fired when mouseup it triggered
             onChangeCommitted={(e) => {
               props.onChange(yearRange);
             }}
-            valueLabelDisplay="auto"
             getAriaLabel={(index) => (index === 0 ? "Start" : "End")}
           />
-        </Grid>
-        <Grid item>{YEAR_END}</Grid>
-      </Grid>
+        </Col>
+        <Col xs="auto" className="year-title">
+          {YEAR_END}
+        </Col>
+      </Row>
     </div>
   );
 }

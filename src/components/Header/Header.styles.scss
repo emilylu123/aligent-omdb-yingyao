@@ -2,9 +2,13 @@
   font-size: 35px;
   margin: 5px 30px;
   color: white;
-  .header {
+  .header-title {
     font-family: "Permanent Marker", cursive;
     font-size: 30px;
+  }
+  .header-title:hover {
+    font-size: 35px;
+    color: azure;
   }
 }
 
@@ -15,7 +19,7 @@
   }
 }
 
-nav,.watch-list-link {
+nav {
   background: #0671ec;
   display: flex;
   justify-content: space-between;
@@ -41,7 +45,8 @@ nav,.watch-list-link {
     border-radius: 5px;
     color: #fff;
   }
-  a:hover {
+
+  .header-link:hover {
     background: rgb(166, 175, 255);
     transition: all ease-in-out 0.2s;
   }

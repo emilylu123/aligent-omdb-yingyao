@@ -24,24 +24,23 @@ export default function MovieList(props) {
     <>
       <div className="total-result-counts grey-font">
         <p>
-          {`SEARCH MOVIE: "${keyword}" - YEAR RANGE: ${startY} - ${endY} - TYPE: `}{" "}
-          {type ? type.toUpperCase() : "ANY"}
+          {`SEARCH ${
+            type ? type.toUpperCase() : "ANY"
+          }: "${keyword}" - YEAR: ${startY} - ${endY} `}
         </p>
-        <p>
-          {movies.length ? `${movies.length} / ${totalResults}  RESULTS` : ""}
-        </p>
+        <p>{movies.length ? ` ${totalResults}  RESULTS` : ""}</p>
       </div>
       <div>
         <InfiniteScroll
           dataLength={movies.length} //This is important field to render the next data
           next={loadMoreMovies} // trigger loadMore function
           onClick={loadMoreMovies}
-          height={850} // trigger loading at this height
+          height={750} // trigger loading at this height
           hasMore={hasMore}
           loader={<h5>Scroll to Loading More...</h5>}
           endMessage={
             <p style={{ textAlign: "center" }}>
-              <b>`Yay! You have seen it all`</b>
+              <b>Yay! You have seen it all</b>
             </p>
           }
         >
