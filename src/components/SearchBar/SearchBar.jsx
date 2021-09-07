@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SearchBar.styles.scss";
 import SearchYear from "./SearchYear/SearchYear";
 import SearchType from "./SearchType/SearchType";
 import { BsSearch } from "react-icons/bs";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+import { Tooltip } from "@material-ui/core"; // use Tooltip to show error message on input box
 
-function SearchBar(props) {
-  const { keyword, year, type } = props.search;
-  const { onClearKeyword, onChangeYear, onChangeType, onChangeSearch } = props;
-
+function SearchBar({
+  onClearKeyword,
+  onChangeYear,
+  onChangeType,
+  onChangeSearch,
+  tooltip,
+  search: { keyword, year, type },
+}) {
+  const [openTooltip, setOpenTooltip] = useState(false);
+  const handleOpen = () => {
+    setOpenTooltip(true);
+  };
+  const handleClose = () => {
+    setOpenTooltip(false);
+  };
   return (
     <Container className="search-bar-container">
       <Row>
@@ -19,17 +31,27 @@ function SearchBar(props) {
             <InputGroup.Text>
               <BsSearch id="search-icon" />
             </InputGroup.Text>
-            <FormControl
-              placeholder="Search Movies"
-              aria-label="keyword"
-              aria-describedby="basic-addon1"
-              name="keyword"
-              id="search-keyword-input"
-              type="text"
-              value={keyword}
-              onClick={onClearKeyword}
-              onChange={onChangeSearch}
-            />
+            <Tooltip
+              open={openTooltip}
+              onClose={handleClose}
+              onOpen={handleOpen}
+              title={tooltip}
+              placement="bottom"
+              arrow
+            >
+              <FormControl
+                placeholder="Search Movies"
+                aria-label="keyword"
+                aria-describedby="basic-addon1"
+                name="keyword"
+                id="search-keyword-input"
+                type="text"
+                value={keyword}
+                onClick={onClearKeyword}
+                onChange={onChangeSearch}
+                autocomplete="off"
+              />
+            </Tooltip>
           </InputGroup>
         </Col>
 

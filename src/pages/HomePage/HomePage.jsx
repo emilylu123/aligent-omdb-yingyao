@@ -3,7 +3,6 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import { Container, Row, Col } from "react-bootstrap";
 import "./HomePage.styles.scss";
-import UseFetch from "../../effects/UseFetch/UseFetch.effect";
 
 export default function HomePage() {
   // movies - search results fetching from the omdb API
@@ -21,6 +20,7 @@ export default function HomePage() {
     page: 1,
   });
   const [clearTag, setClearTag] = useState(false);
+  const [tooltip, setTooltip] = useState("Please enter Keyword");
 
   // omdb API_KEY and URL
   const API_KEY = "866364e";
@@ -43,6 +43,7 @@ export default function HomePage() {
       const data = await response.json();
       console.log("Get Movie data from omdb API>>", listURL, data);
       if (data.Response === "True") {
+        setTooltip(""); // clear tooltip error message
         setTotalResults(data.totalResults);
         if (clearTag) {
           console.log("Clear movies");
@@ -50,32 +51,23 @@ export default function HomePage() {
         }
 
         if (movies.length === 0) {
-          console.log("1st time set movies []", data.Response);
           setMovies(data.Search);
         } else {
-          // handleResult(data);
+          // setMovies array - concat new data to movies array
           setMovies((prev) => {
             return prev.concat(data.Search);
           });
         }
-
-        console.log("set clear false");
         setClearTag(false);
+      } else {
+        data.Error === "Incorrect IMDb ID."
+          ? setTooltip("Please Enter Keyword to Search Movies")
+          : setTooltip(data.Error);
       }
     } catch (e) {
-      console.error(e.toString);
+      console.error("Error in getMovies()", e.toString);
     }
   }
-
-  // handle setMovies array - clear or concat to array
-  // function handleResult(result) {
-  //   if (movies.length >= totalResults) {
-  //     setHasMore(false);
-  //   }
-  //   setMovies((prev) => {
-  //     return prev.concat(result.Search);
-  //   });
-  // }
 
   // clear search keyword
   const handleClearKeyword = () => {
@@ -87,9 +79,7 @@ export default function HomePage() {
       };
     });
     // add clear tag to reset movies
-    console.log("clear keyword");
     setClearTag(true);
-    // setMovies([]);
   };
 
   // filter movie-item display in the year range
@@ -118,7 +108,6 @@ export default function HomePage() {
       };
     });
     setClearTag(true);
-    // setMovies([]);
   }
 
   function loadMoreMovies() {
@@ -141,6 +130,7 @@ export default function HomePage() {
             onChangeYear={handleChangeYear}
             onChangeType={handleChangeSearch}
             onChangeSearch={handleChangeSearch}
+            tooltip={tooltip}
           />
         </Row>
         <Row>
@@ -153,6 +143,7 @@ export default function HomePage() {
                 search={search}
                 totalResults={totalResults}
                 loadMoreMovies={loadMoreMovies}
+                tooltip={tooltip}
               />
             ) : (
               <div className="empty-keyword">
