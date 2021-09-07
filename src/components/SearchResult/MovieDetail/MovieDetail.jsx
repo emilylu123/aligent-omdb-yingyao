@@ -17,6 +17,7 @@ export default function MovieDetail(props) {
 
   useEffect(() => {
     // add dark bookmark if the movie is in the watchList
+    console.log(">> useEffect for bookmark");
     setWatchList(myWatchListCollection.includes(imdbID));
     return () => {
       // clean up bookmark tag
@@ -28,10 +29,11 @@ export default function MovieDetail(props) {
     setWatchList((prevValue) => {
       return !prevValue;
     });
-    // TODO: handle add to watch list array and display later on WatchListPage
+    // handle add to watchlist array and display later on WatchListPage
     watchList ? removeFromList() : addToList();
   }
 
+  // TODO: handle add obj to watch list array and display later on WatchListPage
   function addToList() {
     setMyWatchListCollection((prev) => {
       if (!myWatchListCollection.includes(imdbID)) {
@@ -42,6 +44,7 @@ export default function MovieDetail(props) {
     });
   }
 
+  // TODO: handle remove obj to watch list array and display later on WatchListPage
   function removeFromList() {
     setMyWatchListCollection((prev) => {
       if (myWatchListCollection.includes(imdbID)) {

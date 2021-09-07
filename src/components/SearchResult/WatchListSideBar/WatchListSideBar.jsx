@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import "./WatchListSideBar.styles.scss";
 
-export default function WatchListSideBar(props) {
-  const { myWatchListCollection, placement } = props; 
-
+export default function WatchListSideBar({ myWatchListCollection, placement }) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);

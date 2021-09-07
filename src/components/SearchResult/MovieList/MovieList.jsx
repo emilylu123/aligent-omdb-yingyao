@@ -16,7 +16,6 @@ export default function MovieList(props) {
     movies,
     onSelect,
     loadMoreMovies,
-    hasMore,
     selectId,
   } = props;
 
@@ -35,14 +34,9 @@ export default function MovieList(props) {
           dataLength={movies.length} //This is important field to render the next data
           next={loadMoreMovies} // trigger loadMore function
           onClick={loadMoreMovies}
-          height={750} // trigger loading at this height
-          hasMore={hasMore}
+          height={800} // trigger loading at this height
+          hasMore={true}
           loader={<h5>Scroll to Loading More...</h5>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
         >
           {movies.map(({ Title, Year, Type, Poster, imdbID }, index) => {
             if (Year > startY && Year < endY) {
@@ -67,7 +61,7 @@ export default function MovieList(props) {
         </InfiniteScroll>
       </div>
       {movies.length < totalResults ? (
-        <LoadMore loadMoreFn={loadMoreMovies} hasMore={hasMore} />
+        <LoadMore loadMoreFn={loadMoreMovies} />
       ) : (
         <div></div>
       )}

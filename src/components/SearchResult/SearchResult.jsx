@@ -4,9 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import MovieList from "./MovieList/MovieList";
 import MovieDetail from "./MovieDetail/MovieDetail";
 
-export default function SearchResult(props) {
-  const { search, totalResults, movies, loadMoreMovies, hasMore } = props;
-
+export default function SearchResult({
+  search,
+  totalResults,
+  movies,
+  loadMoreMovies,
+}) {
   const [imdb, setImdb] = useState("tt0076759");
   const [selectId, setSelectId] = useState(0);
   const [movieInfo, setMovieInfo] = useState({});
@@ -25,7 +28,6 @@ export default function SearchResult(props) {
 
   const getMovieDetail = async () => {
     try {
-      console.log(">> Render get movie detail ->", imdb);
       const response = await fetch(detailURL);
       const data = await response.json();
       setMovieInfo(data);
@@ -51,7 +53,6 @@ export default function SearchResult(props) {
             onSelect={handleSelect}
             totalResults={totalResults}
             loadMoreMovies={loadMoreMovies}
-            hasMore={hasMore}
           />
         </Col>
         <Col xs={7} md={8} className="detail-container">

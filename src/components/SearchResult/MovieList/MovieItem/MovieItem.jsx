@@ -2,16 +2,21 @@ import React from "react";
 import "./MovieItem.styles.scss";
 import { Container, Row, Col } from "react-bootstrap";
 
-export default function MovieItem(props) {
-  const { title, year, imgURL, id, onClick } = props;
-
+export default function MovieItem({
+  title,
+  year,
+  imgURL,
+  id,
+  onClick,
+  className,
+}) {
   // use defaultPosterURL if imgURL is not available
   const defaultPosterURL =
     "https://allaboutvanya.files.wordpress.com/2012/02/ilovemovies2.jpg";
 
   return (
     // Executed on click
-    <Container className={props.className} onClick={() => onClick(id)}>
+    <Container className={className} onClick={() => onClick(id)}>
       <Row>
         <Col
           className="d-none d-md-block"

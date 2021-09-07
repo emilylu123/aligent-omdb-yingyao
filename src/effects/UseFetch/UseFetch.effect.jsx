@@ -5,7 +5,7 @@ const UseFetch = (url) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(">> Fetch URL", url);
+      console.log(">> UseFetch URL", url);
       const response = await fetch(url);
       const result = await response.json();
       setData(result);
@@ -13,7 +13,6 @@ const UseFetch = (url) => {
 
     fetchData();
   }, [url]);
-
   return data;
 };
 

@@ -3,6 +3,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import { Container, Row, Col } from "react-bootstrap";
 import "./HomePage.styles.scss";
+import UseFetch from "../../effects/UseFetch/UseFetch.effect";
 
 export default function HomePage() {
   // movies - search results fetching from the omdb API
@@ -10,26 +11,28 @@ export default function HomePage() {
   const [totalResults, setTotalResults] = useState(0);
 
   // search - search conditions set from search-bar
-  const displayCurrentYear = new Date().getFullYear();
-  const [clearTag, setClearTag] = useState(false);
-
   // set default search value
+  // page - add to URL to load more search results from the omdb API
+  const displayCurrentYear = new Date().getFullYear();
   const [search, setSearch] = useState({
     keyword: "star",
     year: [1970, displayCurrentYear],
     type: "", // default type '' - any
     page: 1,
   });
-
-  // page - add to URL to load more search results from the omdb API
-  const [hasMore, setHasMore] = useState(true);
+  const [clearTag, setClearTag] = useState(false);
 
   // omdb API_KEY and URL
   const API_KEY = "866364e";
   const listURL = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search.keyword}&type=${search.type}&page=${search.page}`;
 
   useEffect(() => {
+    console.log(">> (L) useEffect fetch movie basic");
     getMovies(); //fetch data from API
+    return () => {
+      // clean up
+      setClearTag(false);
+    };
   }, [search]);
 
   // async function to fetch movie list(array) from OMDB API
@@ -38,37 +41,44 @@ export default function HomePage() {
     try {
       const response = await fetch(listURL);
       const data = await response.json();
-      console.log("Get Movie data -from omdb API>>", listURL, data);
+      console.log("Get Movie data from omdb API>>", listURL, data);
       if (data.Response === "True") {
+        setTotalResults(data.totalResults);
         if (clearTag) {
           console.log("Clear movies");
           setMovies([]);
         }
 
         if (movies.length === 0) {
-          console.log("1st time set movies", data.Response);
+          console.log("1st time set movies []", data.Response);
           setMovies(data.Search);
-          setTotalResults(data.totalResults);
         } else {
-          handleResult(data);
+          // handleResult(data);
+          setMovies((prev) => {
+            return prev.concat(data.Search);
+          });
         }
+
+        console.log("set clear false");
+        setClearTag(false);
       }
     } catch (e) {
       console.error(e.toString);
     }
   }
 
-  function handleResult(result) {
-    setTotalResults(result.totalResults);
-    if (movies.length >= totalResults) {
-      setHasMore(false);
-    }
-    setMovies((prev) => {
-      return prev.concat(result.Search);
-    });
-  }
+  // handle setMovies array - clear or concat to array
+  // function handleResult(result) {
+  //   if (movies.length >= totalResults) {
+  //     setHasMore(false);
+  //   }
+  //   setMovies((prev) => {
+  //     return prev.concat(result.Search);
+  //   });
+  // }
 
-  const handleKeyword = () => {
+  // clear search keyword
+  const handleClearKeyword = () => {
     setSearch((prev) => {
       return {
         ...prev,
@@ -77,7 +87,9 @@ export default function HomePage() {
       };
     });
     // add clear tag to reset movies
+    console.log("clear keyword");
     setClearTag(true);
+    // setMovies([]);
   };
 
   // filter movie-item display in the year range
@@ -92,8 +104,13 @@ export default function HomePage() {
 
   // change keyword and type and rerender API call
   function handleChangeSearch(event) {
-    const { name, value } = event.target;
-    console.log("handleSearchChange <- ", name, value);
+    // setMovies([]);
+    const { name } = event.target;
+    let value = event.target.value;
+    // replace space to '+' for keyword
+    if (name === "keyword") {
+      value = value.replace(/\s+/g, "+").toLowerCase();
+    }
     setSearch((prev) => {
       return {
         ...prev,
@@ -120,7 +137,7 @@ export default function HomePage() {
           <SearchBar
             className="search-bar"
             search={search}
-            onClearKeyword={handleKeyword}
+            onClearKeyword={handleClearKeyword}
             onChangeYear={handleChangeYear}
             onChangeType={handleChangeSearch}
             onChangeSearch={handleChangeSearch}
@@ -136,7 +153,6 @@ export default function HomePage() {
                 search={search}
                 totalResults={totalResults}
                 loadMoreMovies={loadMoreMovies}
-                hasMore={hasMore}
               />
             ) : (
               <div className="empty-keyword">
