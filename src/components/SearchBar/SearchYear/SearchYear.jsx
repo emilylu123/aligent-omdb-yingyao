@@ -2,7 +2,7 @@ import React from "react";
 import "./SearchYear.styles.scss";
 import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 // custom slider style and color
 const RangeSlider = withStyles({
@@ -45,13 +45,11 @@ export default function SelectYear(props) {
   }
 
   return (
-    <div className="search-year">
-      YEAR
+    <Container className="search-year">
+      <div className="d-none d-md-block">YEAR</div>
       <Row>
-        <Col xs="auto" className="year-title">
-          1970
-        </Col>
-        <Col xs>
+        <Col className="year-title">1970</Col>
+        <Col>
           <RangeSlider
             name="year"
             value={yearRange}
@@ -68,10 +66,8 @@ export default function SelectYear(props) {
             getAriaLabel={(index) => (index === 0 ? "Start" : "End")}
           />
         </Col>
-        <Col xs="auto" className="year-title">
-          {YEAR_END}
-        </Col>
+        <Col className="year-title">{YEAR_END}</Col>
       </Row>
-    </div>
+    </Container>
   );
 }

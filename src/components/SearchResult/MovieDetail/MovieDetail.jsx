@@ -6,21 +6,23 @@ import WatchListSideBar from "../WatchListSideBar/WatchListSideBar";
 import AddToWatchList from "./AddToWatchList/AddToWatchList";
 
 export default function MovieDetail(props) {
-  const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info;
-  const { Title, Year, Poster, imdbID } = props.basic;
-  const [collection, setCollection] = useState([]);
-  const [watchList, setWatchList] = useState(false);
+  const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info; // detailed data get from omdb API with imdbId
+  const { Title, Year, Poster, imdbID } = props.basic; // basic data get from omdb API with movie title
+  const [myWatchListCollection, setMyWatchListCollection] = useState([]); // collection - save my watchlist
+  const [watchList, setWatchList] = useState(false); // toggle bookmark tag
+
+  // display default poster when Poster is 'N/A' from omdb API call
   const defaultPosterURL =
     "https://plk.s6img.com/society6/img/bwP7wn9OIz8OA6hivfNNJMjufCw/w_700/posters/top/~artwork,fw_2718,fh_3618,fy_-3,iw_2718,ih_3623/s6-original-art-uploads/society6/uploads/misc/f7aa6773e46147a4a39e223774f8ec28/~~/be-kind-rainbow-posters.jpg";
 
   useEffect(() => {
     // add dark bookmark if the movie is in the watchList
-    setWatchList(collection.includes(imdbID));
+    setWatchList(myWatchListCollection.includes(imdbID));
     return () => {
       // clean up bookmark tag
       setWatchList(false);
     };
-  }, [imdbID, watchList, collection]);
+  }, [imdbID, watchList, myWatchListCollection]);
 
   function toggleWatchList() {
     setWatchList((prevValue) => {
@@ -31,8 +33,8 @@ export default function MovieDetail(props) {
   }
 
   function addToList() {
-    setCollection((prev) => {
-      if (!collection.includes(imdbID)) {
+    setMyWatchListCollection((prev) => {
+      if (!myWatchListCollection.includes(imdbID)) {
         return [...prev, imdbID];
       }
       console.log("skip for repeated movie");
@@ -41,8 +43,8 @@ export default function MovieDetail(props) {
   }
 
   function removeFromList() {
-    setCollection((prev) => {
-      if (collection.includes(imdbID)) {
+    setMyWatchListCollection((prev) => {
+      if (myWatchListCollection.includes(imdbID)) {
         return prev.filter((item) => {
           return item !== imdbID;
         });
@@ -54,26 +56,26 @@ export default function MovieDetail(props) {
 
   return (
     <Container>
-      <Row>
-        <Col xs={12} md={3}>
+      <Row className="main-info">
+        <Col md={12} lg={3} xl={{ range: 3, offset: 1 }}>
           <img
             src={Poster !== "N/A" ? Poster : defaultPosterURL}
             alt={Title}
             className="poster"
           />
         </Col>
-        <Col md={9}>
+        <Col md lg={8} xl={8}>
           <Container>
             <Row>
-              <Col md={6}></Col>
-              <Col sm={12} md>
+              <Col lg={4}></Col>
+              <Col sm={12} md lg>
                 <AddToWatchList
                   onClick={toggleWatchList}
                   onWatchList={watchList}
                 />
                 <WatchListSideBar
-                  listData={collection}
-                  placement={"end"}
+                  myWatchListCollection={myWatchListCollection}
+                  placement={"end"} // start, end
                   className="myWatchListBtn"
                 />
               </Col>
@@ -82,10 +84,10 @@ export default function MovieDetail(props) {
               <Col xs={12}>
                 <h1 className="detail-title grey-font"> {Title}</h1>
                 <div className="detail-row">
-                  <p className="detail-rated grey-font ft-20">{Rated}</p>
-                  <p className="detail-year grey-font ft-20">{`  ${Year} · ${Genre} · ${Runtime}`}</p>
+                  <p className="detail-rated grey-font ft-1em">{Rated}</p>
+                  <p className="detail-year grey-font ft-1em">{`  ${Year} · ${Genre} · ${Runtime}`}</p>
                 </div>
-                <p className="detail-actors grey-font ft-20">{Actors}</p>
+                <p className="detail-actors grey-font ft-1em">{Actors}</p>
               </Col>
             </Row>
           </Container>
@@ -94,38 +96,42 @@ export default function MovieDetail(props) {
       <hr />
       <Row>
         <Col>
-          <p className="detail-plot grey-font ft-20">{Plot} </p>
+          <p className="detail-plot grey-font ft-1em">{Plot} </p>
         </Col>
       </Row>
       <hr />
       {Ratings ? (
-        <Row className="detail-ratings grey-font">
+        <Row className="detail-ratings">
           {Ratings.length ? (
-            <Col className="detail-rating grey-font">
-              <h4>{Ratings[0].Value}</h4>
-              <h5>{Ratings[0].Source}</h5>
+            <Col className="detail-rating grey-font ft-1em">
+              <p className="rating-score">{Ratings[0].Value}</p>
+              <p className="rating-source">{Ratings[0].Source}</p>
             </Col>
           ) : null}
           {Ratings.length > 1 ? (
-            <Col className="detail-rating grey-font">
-              <h4>{Ratings[1].Value}</h4>
-              <h5>{Ratings[1].Source}</h5>
+            <Col className="detail-rating grey-font ft-1em">
+              <p className="rating-score">{Ratings[1].Value}</p>
+              <p className="rating-source">{Ratings[1].Source}</p>
             </Col>
           ) : null}
-          {/* 3rd column is optional due to the API rating results */}
+          {/* 3rd column is optional due to the API rating results length */}
           {Ratings.length > 2 ? (
-            <Col className="detail-rating grey-font">
-              <h4>{Ratings[2].Value}</h4>
-              <h5>{Ratings[2].Source}</h5>
+            <Col className="detail-rating grey-font ft-1em">
+              <p className="rating-score">{Ratings[2].Value}</p>
+              <p className="rating-source">{Ratings[2].Source}</p>
             </Col>
           ) : null}
         </Row>
       ) : null}
       <hr />
+
+      {/* TODO: display my watchlist at the bottom  */}
       <Row>
-        <Col className="grey-font">
-          <h5>My movie watch list (Total {collection.length} items):</h5>
-          {collection.map((item, index) => (
+        <Col className="grey-font ft-1em">
+          <p>
+            My movie watch list (Total {myWatchListCollection.length} items):
+          </p>
+          {myWatchListCollection.map((item, index) => (
             <p key={index}>{item}</p>
           ))}
         </Col>

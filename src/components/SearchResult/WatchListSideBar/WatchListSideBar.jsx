@@ -3,12 +3,11 @@ import { Button, Offcanvas } from "react-bootstrap";
 import "./WatchListSideBar.styles.scss";
 
 export default function WatchListSideBar(props) {
-  const { listData, placement } = props;
+  const { myWatchListCollection, placement } = props; 
 
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   return (
     <>
@@ -25,12 +24,12 @@ export default function WatchListSideBar(props) {
           <Offcanvas.Title>My WatchList</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {listData ? (
-            listData.map((data, index) => {
-              return <p key={index}>{data}</p>;
+          {myWatchListCollection ? (
+            myWatchListCollection.map((data, index) => {
+              return <p key={data}>{data}</p>;
             })
           ) : (
-            <p>Empty</p>
+            <p>Your Watch is Empty</p>
           )}
         </Offcanvas.Body>
       </Offcanvas>

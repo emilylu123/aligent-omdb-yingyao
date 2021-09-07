@@ -20,7 +20,7 @@ export default function SelectType(props) {
   return (
     <div className="search-type">
       <FormControl component="fieldset" className="search-type">
-        TYPE {type}
+        <div className="d-none d-md-block">TYPE {type}</div>
         <RadioGroup row name="type" defaultValue="" onChange={props.onChange}>
           <FormControlLabel
             value=""

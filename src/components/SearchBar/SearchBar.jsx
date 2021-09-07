@@ -13,8 +13,8 @@ function SearchBar(props) {
     <Container className="search-bar-container">
       <Row>
         {/* KEYWORD - search input box */}
-        <Col xs>
-          <InputGroup className="search-input-block" size="lg">
+        <Col xs={12} md={3}>
+          <InputGroup className="search-input-block" size="sm">
             {/* search icon */}
             <InputGroup.Text>
               <BsSearch id="search-icon" />
@@ -34,12 +34,12 @@ function SearchBar(props) {
         </Col>
 
         {/* YEAR - change search year range with Material UI slider */}
-        <Col className="search-year-block" xs="auto">
+        <Col className="search-year-block d-none d-md-block" xs={12} md lg>
           <SearchYear name="year" value={year} onChange={onChangeYear} />
         </Col>
 
         {/* TYPE - change search type */}
-        <Col className="search-type-block" xs="auto">
+        <Col className="search-type-block" xs={12} md lg>
           <SearchType name="type" value={type} onChange={onChangeType} />
         </Col>
       </Row>

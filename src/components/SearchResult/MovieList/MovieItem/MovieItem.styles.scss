@@ -1,5 +1,5 @@
 .movie-item {
-  padding: 20px 0 20px 20px;
+  padding: 0.6em;
   border: 1px solid darkgray;
   border-top: 0ch;
 }
@@ -12,13 +12,13 @@
 
 .movie-item-title {
   color: rgb(111, 111, 111);
-  font-size: 1.2rem;
+  font-size: 1em;
   font-weight: 500;
 }
 
 .movie-item-year {
-  color: darkgray;
+  color: #787a91;
   padding: 0px 5px;
   margin: 5px;
-  font-size: 1rem;
+  font-size: 1em;
 }

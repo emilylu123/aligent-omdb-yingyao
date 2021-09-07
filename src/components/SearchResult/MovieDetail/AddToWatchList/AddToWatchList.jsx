@@ -13,7 +13,7 @@ export default function AddToWatchList(props) {
       ) : (
         <BookmarkBorderIcon className="bookmark" />
       )}
-      Watchlist
+      <span id="watchlist-btn-text">Watchlist</span>
     </button>
   );
 }

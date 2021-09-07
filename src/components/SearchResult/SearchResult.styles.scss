@@ -1,11 +1,11 @@
 .search-result-list {
-  max-height: 850px;
-  overflow-y: auto;
+  max-height: 1000px;
+  overflow-y: scroll;
 }
 
 // add background color if selected
 .selected {
-  background-color: rgba(211, 211, 211, 0.651);
+  background-color: #dddddd;
 }
 
 .detail-container {

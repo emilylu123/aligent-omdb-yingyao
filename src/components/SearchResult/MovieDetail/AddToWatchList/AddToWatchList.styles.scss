@@ -1,12 +1,21 @@
 .addWatchlistBtn {
-  margin-top: 25px;
+  // margin-top: 25px;
   margin-left: auto;
-  margin-right: 15px;
-  width: 125px;
+  margin-right: 2px;
+  width: auto;
   height: 45px;
   border-radius: 5px;
+  border-color: #666;
+
   background-color: white;
   .bookmark {
-    margin: 2px 5px;
+    margin: 1px;
   }
+}
+
+#watchlist-btn-text {
+  display: inline !important;
+  border-color: red !important;
+  font-size: 0.85em;
+  font-weight: 500;
 }

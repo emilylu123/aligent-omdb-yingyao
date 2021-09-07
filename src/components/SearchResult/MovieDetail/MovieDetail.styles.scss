@@ -1,37 +1,34 @@
-
-.ft-20 {
-  font-size: 20px;
-}
-
 .poster {
-  margin: 25px 20px 10px 2px;
-  width: 100%;
-  max-width: 280px;
+  width: 90%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 10px;
+  max-height: 500px;
+  max-width: 350px;
 }
 
 .detail-title {
+  font-size: 2em;
   font-weight: 900;
-  margin: 50px 50px 20px 0px;
+  margin-top: 1em;
 }
 
 .detail-rated {
+  font-size: 0.8em;
   display: inline;
   font-weight: 200;
   padding: 1px 5px;
   border-radius: 3px;
-  border: 1px solid black;
+  border: 1px solid #666;
 }
 
 .detail-row {
-  margin: 25px 0;
+  padding: 0.6em 0;
 }
 
 .detail-year {
   display: inline;
   align-items: left;
-  margin: 0 10px;
+  padding: 0 0.6em;
 }
 
 .detail-actors {
@@ -40,15 +37,14 @@
 }
 
 .detail-plot {
-  margin: 25px 50px 25px 0px;
+  padding: 1em 1em 1em 0px;
   text-align: left;
   align-items: left;
 }
 
 .detail-ratings {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 30px;
+  padding: 0 1em;
 }
 
 .detail-rating {
@@ -61,8 +57,16 @@
 .detail-rating:after {
   position: absolute;
   content: "";
-  border-right: 2px solid lightgrey;
+  border-right: 1px solid darkgray;
   height: 60px;
   right: 0;
   top: 0px;
+}
+
+.rating-source {
+  font-size: 0.9em;
+}
+
+.rating-score {
+  font-size: 1.2em;
 }

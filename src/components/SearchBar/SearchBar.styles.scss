@@ -1,40 +1,54 @@
 .search-bar-container {
-  width: 100%;
   color: white;
   background-color: #666666;
   align-content: center;
+  width: 100vw;
 }
 
 .input-group-text {
   background-color: #666666;
-  border: #666666;
+  border-color: #666666;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.1rem #666666;
 }
 
 #search-icon {
   font-size: 30px;
   color: white;
 }
+
 #search-keyword-input {
+  border-color: #666666;
+  // box-shadow: 0 0 0 0.1rem #8ebdb1;
   background-color: #666666;
-  font-size: 30px;
+  font-size: 1.6em;
   border: 0ch;
   color: white;
 }
 
+#search-keyword-input::placeholder {
+  font-size: 0.75em !important;
+  color: #c8c6c6 !important;
+}
+
 .search-input-block {
   background-color: #666666;
-  margin: 10px 50px;
-  width: 60%;
+  padding: 10px;
+  width: 90%;
   align-self: flex-end;
 }
 
 .search-year-block {
-  margin: 12px 10px 0px 5px;
+  padding: 12px 10px 0px 0px;
   float: right;
-  width: 25%;
+  width: 20px;
+  // min-width: 10em;
+  // mix-width: 25%;
 }
 
 .search-type-block {
-  margin: 12px 50px 0px 10px;
+  margin: 12px 0px 0px 0px;
   float: right;
 }

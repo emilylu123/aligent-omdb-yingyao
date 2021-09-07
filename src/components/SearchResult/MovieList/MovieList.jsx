@@ -22,7 +22,7 @@ export default function MovieList(props) {
 
   return (
     <>
-      <div className="total-result-counts grey-font">
+      <div className="total-result-counts grey-font d-none d-lg-block">
         <p>
           {`SEARCH ${
             type ? type.toUpperCase() : "ANY"
