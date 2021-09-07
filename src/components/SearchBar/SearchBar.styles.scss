@@ -20,8 +20,6 @@
 }
 
 #search-keyword-input {
-  border-color: #666666;
-  // box-shadow: 0 0 0 0.1rem #8ebdb1;
   background-color: #666666;
   font-size: 1.6em;
   border: 0ch;
@@ -41,11 +39,9 @@
 }
 
 .search-year-block {
-  padding: 12px 10px 0px 0px;
-  float: right;
-  width: 20px;
-  // min-width: 10em;
-  // mix-width: 25%;
+  padding: 12px 0px 0px 0px;
+  float: inline-start;
+  width: 18px;
 }
 
 .search-type-block {

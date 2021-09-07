@@ -22,9 +22,6 @@ const RangeSlider = withStyles({
     },
   },
   active: {},
-  // valueLabel: {
-  //   left: "calc(-50% + 4px)",
-  // },
   track: {
     height: 8,
     borderRadius: 4,
@@ -48,8 +45,10 @@ export default function SelectYear(props) {
     <Container className="search-year">
       <div className="d-none d-md-block">YEAR</div>
       <Row>
-        <Col className="year-title">1970</Col>
-        <Col>
+        <Col xs className="year-title">
+          1970
+        </Col>
+        <Col xs={8}>
           <RangeSlider
             name="year"
             value={yearRange}
@@ -66,7 +65,9 @@ export default function SelectYear(props) {
             getAriaLabel={(index) => (index === 0 ? "Start" : "End")}
           />
         </Col>
-        <Col className="year-title">{YEAR_END}</Col>
+        <Col xs className="year-title">
+          {YEAR_END}
+        </Col>
       </Row>
     </Container>
   );

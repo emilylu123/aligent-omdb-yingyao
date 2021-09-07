@@ -25,7 +25,7 @@ function SearchBar({
     <Container className="search-bar-container">
       <Row>
         {/* KEYWORD - search input box */}
-        <Col xs={12} md={3}>
+        <Col xs={12} md={3} lg={4} xl={6}>
           <InputGroup className="search-input-block" size="sm">
             {/* search icon */}
             <InputGroup.Text>
@@ -49,19 +49,25 @@ function SearchBar({
                 value={keyword}
                 onClick={onClearKeyword}
                 onChange={onChangeSearch}
-                autocomplete="off"
+                autoComplete="off"
               />
             </Tooltip>
           </InputGroup>
         </Col>
 
         {/* YEAR - change search year range with Material UI slider */}
-        <Col className="search-year-block d-none d-md-block" xs={12} md lg>
+        <Col className="search-year-block d-none d-lg-block" xs={12} lg>
           <SearchYear name="year" value={year} onChange={onChangeYear} />
         </Col>
 
         {/* TYPE - change search type */}
-        <Col className="search-type-block" xs={12} md lg>
+        <Col
+          className="search-type-block"
+          xs={12}
+          md="auto"
+          lg="auto"
+          xl="auto"
+        >
           <SearchType name="type" value={type} onChange={onChangeType} />
         </Col>
       </Row>
