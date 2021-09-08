@@ -22,13 +22,18 @@ export default function MovieItem({
           className="d-none d-md-block"
           md={{ span: 6, offset: 2 }}
           lg={{ span: 3, offset: 1 }}
-          xxl={{ span: 3, offset: 2 }}
+          xxl={{ span: 2, offset: 2 }}
         >
-          <img
-            className="movie-item-poster  "
-            src={imgURL !== "N/A" ? imgURL : defaultPosterURL}
-            alt="Poster"
-          />
+          <Col lg={2}></Col>
+          <Col lg={6}>
+            <img
+              className="movie-item-poster  "
+              src={imgURL !== "N/A" ? imgURL : defaultPosterURL}
+              alt="Poster"
+            />
+          </Col>
+          <Col lg={1}></Col>
+          {/* <Col lg="auto"></Col> */}
         </Col>
         <Col
           md={{ span: 10, offset: 1 }}
