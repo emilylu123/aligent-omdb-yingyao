@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/aligent-omdb-yingyao/static/css/main.a569c4e2.chunk.css",
-    "main.js": "/aligent-omdb-yingyao/static/js/main.82619ce5.chunk.js",
-    "main.js.map": "/aligent-omdb-yingyao/static/js/main.82619ce5.chunk.js.map",
-    "runtime-main.js": "/aligent-omdb-yingyao/static/js/runtime-main.613738e0.js",
-    "runtime-main.js.map": "/aligent-omdb-yingyao/static/js/runtime-main.613738e0.js.map",
-    "static/js/2.2f45fd61.chunk.js": "/aligent-omdb-yingyao/static/js/2.2f45fd61.chunk.js",
-    "static/js/2.2f45fd61.chunk.js.map": "/aligent-omdb-yingyao/static/js/2.2f45fd61.chunk.js.map",
-    "static/js/3.d429f150.chunk.js": "/aligent-omdb-yingyao/static/js/3.d429f150.chunk.js",
-    "static/js/3.d429f150.chunk.js.map": "/aligent-omdb-yingyao/static/js/3.d429f150.chunk.js.map",
+    "main.css": "/aligent-omdb-yingyao/static/css/main.9e0523d5.chunk.css",
+    "main.js": "/aligent-omdb-yingyao/static/js/main.b9a2b019.chunk.js",
+    "main.js.map": "/aligent-omdb-yingyao/static/js/main.b9a2b019.chunk.js.map",
+    "runtime-main.js": "/aligent-omdb-yingyao/static/js/runtime-main.8ef1c5f7.js",
+    "runtime-main.js.map": "/aligent-omdb-yingyao/static/js/runtime-main.8ef1c5f7.js.map",
+    "static/js/2.ed018018.chunk.js": "/aligent-omdb-yingyao/static/js/2.ed018018.chunk.js",
+    "static/js/2.ed018018.chunk.js.map": "/aligent-omdb-yingyao/static/js/2.ed018018.chunk.js.map",
+    "static/js/3.9d7edafb.chunk.js": "/aligent-omdb-yingyao/static/js/3.9d7edafb.chunk.js",
+    "static/js/3.9d7edafb.chunk.js.map": "/aligent-omdb-yingyao/static/js/3.9d7edafb.chunk.js.map",
     "index.html": "/aligent-omdb-yingyao/index.html",
-    "static/css/main.a569c4e2.chunk.css.map": "/aligent-omdb-yingyao/static/css/main.a569c4e2.chunk.css.map",
-    "static/js/2.2f45fd61.chunk.js.LICENSE.txt": "/aligent-omdb-yingyao/static/js/2.2f45fd61.chunk.js.LICENSE.txt"
+    "static/css/main.9e0523d5.chunk.css.map": "/aligent-omdb-yingyao/static/css/main.9e0523d5.chunk.css.map",
+    "static/js/2.ed018018.chunk.js.LICENSE.txt": "/aligent-omdb-yingyao/static/js/2.ed018018.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.613738e0.js",
-    "static/js/2.2f45fd61.chunk.js",
-    "static/css/main.a569c4e2.chunk.css",
-    "static/js/main.82619ce5.chunk.js"
+    "static/js/runtime-main.8ef1c5f7.js",
+    "static/js/2.ed018018.chunk.js",
+    "static/css/main.9e0523d5.chunk.css",
+    "static/js/main.b9a2b019.chunk.js"
   ]
 }
