@@ -20,7 +20,7 @@ export default function MovieItem({
       <Row>
         <Col
           className="d-none d-md-block"
-          md={{ span: 6, offset: 3 }}
+          md={{ span: 6, offset: 2 }}
           lg={{ span: 3, offset: 1 }}
           xxl={{ span: 3, offset: 2 }}
         >
@@ -33,7 +33,7 @@ export default function MovieItem({
         <Col
           md={{ span: 10, offset: 1 }}
           lg={{ span: 7, offset: 1 }}
-          xxl={{ span: 6, offset: 0 }}
+          xxl={{ span: 6, offset: 1 }}
         >
           <Row>
             <div className="movie-item-title grey-font">{title}</div>

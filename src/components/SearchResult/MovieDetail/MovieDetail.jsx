@@ -6,9 +6,10 @@ import WatchListSideBar from "../WatchListSideBar/WatchListSideBar";
 import AddToWatchList from "./AddToWatchList/AddToWatchList";
 
 export default function MovieDetail(props) {
+  const myMovie = props.info;
   const { Rated, Runtime, Actors, Genre, Plot, Ratings } = props.info; // detailed data get from omdb API with imdbId
   const { Title, Year, Poster, imdbID } = props.basic; // basic data get from omdb API with movie title
-  const [myWatchListCollection, setMyWatchListCollection] = useState([]); // collection - save my watchlist
+  const [myCollection, setMyCollection] = useState([]); // collection - save my watchlist(movie detailed info )
   const [watchList, setWatchList] = useState(false); // toggle bookmark tag
 
   // display default poster when Poster is 'N/A' from omdb API call
@@ -18,12 +19,13 @@ export default function MovieDetail(props) {
   useEffect(() => {
     // add dark bookmark if the movie is in the watchList
     console.log(">> useEffect for bookmark");
-    setWatchList(myWatchListCollection.includes(imdbID));
+
+    setWatchList(containsInMyList(myCollection, myMovie)); // check if in myCollection to set bookmark
     return () => {
       // clean up bookmark tag
       setWatchList(false);
     };
-  }, [imdbID, watchList, myWatchListCollection]);
+  }, [watchList, myCollection, myMovie]);
 
   function toggleWatchList() {
     setWatchList((prevValue) => {
@@ -33,28 +35,35 @@ export default function MovieDetail(props) {
     watchList ? removeFromList() : addToList();
   }
 
-  // TODO: handle add obj to watch list array and display later on WatchListPage
+  // handle add obj to watch list array and display later on WatchListPage
   function addToList() {
-    setMyWatchListCollection((prev) => {
-      if (!myWatchListCollection.includes(imdbID)) {
-        return [...prev, imdbID];
+    setMyCollection((prev) => {
+      if (!containsInMyList(myCollection, myMovie)) {
+        return [...prev, myMovie];
       }
       console.log("skip for repeated movie");
       return prev;
     });
   }
 
-  // TODO: handle remove obj to watch list array and display later on WatchListPage
+  // handle remove obj to watch list array and display later on WatchListPage
   function removeFromList() {
-    setMyWatchListCollection((prev) => {
-      if (myWatchListCollection.includes(imdbID)) {
+    setMyCollection((prev) => {
+      if (containsInMyList(myCollection, myMovie)) {
         return prev.filter((item) => {
-          return item !== imdbID;
+          return item.imdbID !== imdbID;
         });
       } else {
         return prev;
       }
     });
+  }
+
+  function containsInMyList(list, addedItem) {
+    let filtered_item = list.filter((item) => {
+      return item.imdbID === addedItem.imdbID;
+    });
+    return !!filtered_item.length;
   }
 
   return (
@@ -77,7 +86,7 @@ export default function MovieDetail(props) {
                   onWatchList={watchList}
                 />
                 <WatchListSideBar
-                  myWatchListCollection={myWatchListCollection}
+                  myCollection={myCollection}
                   placement={"end"} // start, end
                   className="myWatchListBtn"
                 />
@@ -128,14 +137,12 @@ export default function MovieDetail(props) {
       ) : null}
       <hr />
 
-      {/* TODO: display my watchlist at the bottom  */}
+      {/* display my watchlist at the bottom  */}
       <Row>
         <Col className="grey-font ft-1em">
-          <p>
-            My movie watch list (Total {myWatchListCollection.length} items):
-          </p>
-          {myWatchListCollection.map((item, index) => (
-            <p key={index}>{item}</p>
+          <p>My movie watch list (Total {myCollection.length} items):</p>
+          {myCollection.map((item) => (
+            <p key={item.imdbID}>{` ${item.Title} : ${item.Year}`}</p>
           ))}
         </Col>
       </Row>

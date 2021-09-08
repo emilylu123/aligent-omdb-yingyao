@@ -30,7 +30,7 @@ export default function HomePage() {
     console.log(">> (L) useEffect fetch movie basic");
     getMovies(); //fetch data from API
     return () => {
-      // clean up
+      // clean up lear tag
       setClearTag(false);
     };
   }, [search]);
@@ -44,7 +44,7 @@ export default function HomePage() {
       console.log("Get Movie data from omdb API>>", listURL, data);
       if (data.Response === "True") {
         setTooltip(""); // clear tooltip error message
-        setTotalResults(data.totalResults);
+        setTotalResults(data.totalResults); //update total result counts
         if (clearTag) {
           console.log("Clear movies");
           setMovies([]);
@@ -107,6 +107,7 @@ export default function HomePage() {
         [name]: value,
       };
     });
+    // clear movies
     setClearTag(true);
   }
 

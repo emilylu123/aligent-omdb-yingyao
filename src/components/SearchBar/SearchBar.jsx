@@ -36,7 +36,7 @@ function SearchBar({
               onClose={handleClose}
               onOpen={handleOpen}
               title={tooltip}
-              placement="bottom"
+              placement="bottom-start"
               arrow
             >
               <FormControl
